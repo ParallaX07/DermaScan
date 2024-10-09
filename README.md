@@ -40,10 +40,10 @@ DermaScan is a machine learning-based tool designed to assist in the early detec
 <img src="https://raw.githubusercontent.com/tandpfun/skill-icons/refs/heads/main/icons/MongoDB.svg" width="25" height="25"> **MongoDB**
 
 ### Machine Learning
-<img src="https://raw.githubusercontent.com/tandpfun/skill-icons/refs/heads/main/icons/PyTorch-Dark.svg" width="25" height="25"> **PyTorch**
-<img src="https://raw.githubusercontent.com/tandpfun/skill-icons/refs/heads/main/icons/OpenCV-Dark.svg" width="25" height="25"> **OpenCV**
-<img src="https://raw.githubusercontent.com/tandpfun/skill-icons/refs/heads/main/icons/ScikitLearn-Dark.svg" width="25" height="25"> **scikit-learn**
-<img src="https://raw.githubusercontent.com/devicons/devicon/refs/heads/master/icons/keras/keras-original.svg" width="25" height="25"> **Keras**
+<img src="https://raw.githubusercontent.com/tandpfun/skill-icons/refs/heads/main/icons/PyTorch-Dark.svg" width="25" height="25"> **PyTorch**  
+<img src="https://raw.githubusercontent.com/tandpfun/skill-icons/refs/heads/main/icons/OpenCV-Dark.svg" width="25" height="25"> **OpenCV**  
+<img src="https://raw.githubusercontent.com/tandpfun/skill-icons/refs/heads/main/icons/ScikitLearn-Dark.svg" width="25" height="25"> **scikit-learn**  
+<img src="https://raw.githubusercontent.com/devicons/devicon/refs/heads/master/icons/keras/keras-original.svg" width="25" height="25"> **Keras**  
 
 
 ## Getting Started

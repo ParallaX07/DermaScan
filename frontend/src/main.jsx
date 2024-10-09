@@ -6,6 +6,7 @@ import Login from "./pages/Login";
 import Root from "./pages/Root";
 import Home from "./pages/Home";
 import AuthProvider from "./Auth/AuthProvider";
+import Register from "./pages/Register";
 // import PrivateRoute from "./Auth/PrivateRoute";
 
 const router = createBrowserRouter([
@@ -23,6 +24,22 @@ const router = createBrowserRouter([
                         <Login />
                 ),
             },
+            {
+                path: "/register",
+                element: <Register/>,
+            },
+            {
+                path: "/prevention",
+                element: <div>Prevention</div>,
+            },
+            {
+                path: "/skin-check",
+                element: <div>Skin Check</div>,
+            },
+            {
+                path: "/early-detection",
+                element: <div>Early Detection</div>,
+            }
         ],
     },
 ]);

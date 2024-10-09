@@ -64,7 +64,7 @@ const Root = () => {
     return (
         <>
             <MessageContext.Provider value={messageInfo}>
-                <main className={`font-poppins transition duration-300`}>
+                <main className={` transition duration-300`}>
                     <NavBar />
                     <Outlet />
                 </main>

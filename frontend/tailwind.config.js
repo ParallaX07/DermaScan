@@ -1,6 +1,7 @@
 /** @type {import('tailwindcss').Config} */
 export default {
     content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
+
     theme: {
         extend: {
             colors: {
@@ -8,6 +9,9 @@ export default {
                 secondary: "#00B4D8",
                 tertiary: "#90E0EF",
                 accent: "#CAF0F8",
+            },
+            fontFamily: {
+                poppins: ["Poppins", "sans-serif"],
             },
         },
     },

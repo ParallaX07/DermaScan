@@ -131,7 +131,7 @@ const NavBar = () => {
                         isActive ? `${active}` : `${inactive}`
                     }
                 >
-                    HOME
+                    Home
                 </NavLink>
             </li>
             <li>
@@ -141,7 +141,7 @@ const NavBar = () => {
                         isActive ? `${active}` : `${inactive}`
                     }
                 >
-                    PREVENTION
+                    Prevention
                 </NavLink>
             </li>
             <li>
@@ -151,7 +151,7 @@ const NavBar = () => {
                         isActive ? `${active}` : `${inactive}`
                     }
                 >
-                    SKIN CHECK
+                    Skin Check
                 </NavLink>
             </li>
             <li>
@@ -161,15 +161,15 @@ const NavBar = () => {
                         isActive ? `${active}` : `${inactive}`
                     }
                 >
-                    EARLY DETECTION
+                    Early Detection 
                 </NavLink>
             </li>
         </>
     );
 
     return (
-        <header className="flex fixed w-full top-0 z-50 custom-shadow bg-white font-poppins transition duration-300">
-            <nav className="lg:px-5 mt-3 mx-2 glass-morph px-3 py-2 flex justify-between text-sm items-center lg:text-lg font-bold w-full">
+        <header className="flex fixed w-full top-0 z-50 custom-shadow transition duration-300">
+            <nav className="lg:px-5 mt-3 mx-2 glass-morph px-3 py-2 flex justify-between text-sm items-center lg:text-base font-bold w-full">
                 <Link to="/" className="flex items-center gap-2">
                     <img
                         className="lg:size-16 size-14"

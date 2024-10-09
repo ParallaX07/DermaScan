@@ -59,7 +59,7 @@ DermaScan is a machine learning-based tool designed to assist in the early detec
    ```bash
    git clone https://github.com/ParallaX07/DermaScan.git
 ## Team Members
-**Saalim Saadman Araf** @[ParallaX07](https://github.com/ParallaX07)
+**Saalim Saadman Araf** @[ParallaX07](https://github.com/ParallaX07)  
 **Shaheer Farrubar Shamsi** @[shaheer-shamsi](https://github.com/shaheer-shamsi)
 
 ## Acknowledgement

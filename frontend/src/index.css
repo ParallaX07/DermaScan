@@ -10,15 +10,15 @@
 
 .glass-morph {
     background: rgba(255, 255, 255, 0.2);
-    box-shadow: 4px 4px 4px 4px rgba(31, 38, 135, 0.1);
+    box-shadow: 8px 8px 8px 8px rgba(31, 38, 135, 0.2);
     border: 1px solid rgba(255, 255, 255, 0.18);
-    backdrop-filter: blur(8.5px);
-    -webkit-backdrop-filter: blur(8.5px);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
     border-radius: 10px;
 }
 
 body {
-    background: url('https://i.ibb.co.com/sC6QPkg/DALL-E-2024-10-09-15-26-17-Design-a-modern-clean-and-minimalist-wallpaper-for-a-skin-disease-detecti.jpg');
+    background: url('https://i.ibb.co.com/LvgHJbt/Designer.jpg');
     background-size: cover;
     /* background-repeat: no-repeat; */
     background-attachment: fixed;

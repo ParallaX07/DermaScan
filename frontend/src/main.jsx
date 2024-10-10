@@ -30,15 +30,15 @@ const router = createBrowserRouter([
             },
             {
                 path: "/prevention",
-                element: <div>Prevention</div>,
+                element: <div className="mt-32">Prevention</div>,
             },
             {
                 path: "/skin-check",
-                element: <div>Skin Check</div>,
+                element: <div className="mt-32">Skin Check</div>,
             },
             {
                 path: "/early-detection",
-                element: <div>Early Detection</div>,
+                element: <div className="mt-32">Early Detection</div>,
             }
         ],
     },

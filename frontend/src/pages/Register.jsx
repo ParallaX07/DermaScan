@@ -1,13 +1,23 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import PasswordInput from "../components/functionalComponents/PasswordInput";
 import { useContext, useState } from "react";
 import { MessageContext } from "./Root";
+import { AuthContext } from "../Auth/AuthProvider";
+import Loader from './../components/shared/Loader';
+import useAxiosSecure from './../hooks/useAxiosSecure';
+
+
 
 const Register = () => {
     const [password, setPassword] = useState("");
     const [confirmation, setConfirmation] = useState("");
+    const { createUser, updateUserProfile, loading, setLoading } = useContext(AuthContext);
 
-    const { notifyError } = useContext(MessageContext);
+    const axiosSecure = useAxiosSecure();
+
+    const { notifyError, notifySuccess } = useContext(MessageContext);
+
+    const navigate = useNavigate();
 
     const handleRegister = (event) => {
         event.preventDefault();
@@ -21,7 +31,7 @@ const Register = () => {
         const name = formData.get("name");
         const age = formData.get("age");
         const gender = formData.get("gender");
-        const url = formData.get("url");
+        const url = formData.get("url") || "https://i.ibb.co.com/hYbbGyR/6596121-modified.png";
 
         //password validation
         if (password.length < 6) {
@@ -45,8 +55,37 @@ const Register = () => {
             return;
         }
 
+        setLoading(true);
+        createUser(email, password)
+            .then(() => {
+                updateUserProfile(name, url);
+                navigate("/");
+            })
+            .catch((error) => {
+                notifyError(error.message);
+            }).finally(() => {
+                setLoading(false);
+            });
+
+        const user = {
+            name,
+            email,
+            age,
+            gender,
+            url,
+        }
         
+        axiosSecure.post("/createUser", user)
+            .then(() => {
+                notifySuccess("User registered successfully");
+                navigate("/login");
+            })
+            .catch((error) => {
+                notifyError(error.message);
+            });
     };
+
+    if (loading) return <Loader/>
 
     return (
         <section className="h-[calc(100dvh-100px)] lg:w-full flex items-center justify-center mt-20">

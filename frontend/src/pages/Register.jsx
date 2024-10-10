@@ -78,7 +78,7 @@ const Register = () => {
         axiosSecure.post("/createUser", user)
             .then(() => {
                 notifySuccess("User registered successfully");
-                navigate("/login");
+                navigate("/");
             })
             .catch((error) => {
                 notifyError(error.message);

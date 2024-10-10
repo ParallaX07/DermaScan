@@ -1,10 +1,46 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import PasswordInput from "../components/functionalComponents/PasswordInput";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { MessageContext } from "./Root";
+import { AuthContext } from "../Auth/AuthProvider";
+import Loader from "../components/shared/Loader";
 
 const Login = () => {
 
+    const navigate = useNavigate();
+
     const [password, setPassword] = useState("");
+    const { notifyError, notifySuccess } = useContext(MessageContext);
+    const { login, user, loading, setLoading } = useContext(AuthContext);
+
+    if (user) {
+        navigate("/");
+    }
+
+    const handleLogin = (e) => {
+        e.preventDefault();
+        const formData = new FormData(e.target);
+        const email = formData.get("email");
+        
+        setLoading(true);
+        login(email, password)
+            .then(() => {
+                notifySuccess("Login successful");
+                setLoading(false);
+                navigate("/");
+            })
+            .catch((error) => {
+                notifyError(error.message);
+                setLoading(false);
+            }).finally(() => {
+                setLoading(false);
+            });
+    }
+
+
+
+    if (loading) return <Loader />;
+
 
     return (
         <section className="h-[calc(100dvh-100px)] w-full flex items-center justify-center mt-20">
@@ -21,7 +57,7 @@ const Login = () => {
                         Register with email
                     </Link>
                 </p>
-                <form className="mt-2">
+                <form className="mt-2" onSubmit={(e) => handleLogin(e)}>
                     <div className="space-y-5">
                         <div>
                             <label className="text-base font-medium text-gray-900">

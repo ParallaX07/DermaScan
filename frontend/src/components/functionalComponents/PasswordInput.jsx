@@ -46,9 +46,9 @@ const PasswordInput = ({ name, placeholder, onValueChange }) => {
                 anchorSelect=".show"
                 place="top"
                 style={{
-                    backgroundColor: "rgba(177, 139, 94, 0.9)",
+                    backgroundColor: "rgba(0, 119, 182, 1)",
                     color: "rgb(255, 255, 255)",
-                    borderColor: "rgba(177, 139, 94, 1)",
+                    borderColor: "rgba(0, 119, 182, 1)",
                     borderWidth: "2px",
                     fontWeight: "700",
                 }}
@@ -59,9 +59,9 @@ const PasswordInput = ({ name, placeholder, onValueChange }) => {
                 anchorSelect=".hide"
                 place="top"
                 style={{
-                    backgroundColor: "rgba(177, 139, 94, 0.9)",
+                    backgroundColor: "rgba(0, 119, 182, 1)",
                     color: "rgb(255, 255, 255)",
-                    borderColor: "rgba(177, 139, 94, 1)",
+                    borderColor: "rgba(0, 119, 182, 1)",
                     borderWidth: "2px",
                     fontWeight: "700",
                 }}

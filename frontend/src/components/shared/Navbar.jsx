@@ -72,9 +72,9 @@ const NavBar = () => {
 
                 <button
                     onClick={handleLogout}
-                    className="lg:py-2 lg:px-3 rounded-full bg-primary text-primary bg-opacity-20 border-primary border-2 hidden lg:flex items-center gap-2"
+                    className="logout lg:py-2 lg:px-3 rounded-full bg-primary text-primary bg-opacity-20 border-primary border-2 hidden lg:flex items-center gap-2"
                 >
-                    <IoMdLogOut className="size-6" /> Logout
+                    <IoMdLogOut className="size-6" />
                 </button>
             </div>
         </>
@@ -253,13 +253,25 @@ const NavBar = () => {
                 style={{
                     backgroundColor: "rgba(0, 119, 182, 1)",
                     color: "rgb(255, 255, 255)",
-                    borderColor: "rgba(177, 139, 94, 1)",
+                    borderColor: "rgba(0, 119, 182, 1)",
                     borderWidth: "2px",
                     fontWeight: "700",
                 }}
             >
                 {user?.displayName}
             </Tooltip>
+
+            <Tooltip
+                anchorSelect=".logout"
+                place="top"
+                style={{
+                    backgroundColor: "rgba(0, 119, 182, 1)",
+                    color: "rgb(255, 255, 255)",
+                    borderColor: "rgba(0, 119, 182, 1)",
+                    borderWidth: "2px",
+                    fontWeight: "700",
+                }}
+            >Logout</Tooltip>
         </header>
     );
 };

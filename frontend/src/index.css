@@ -14,18 +14,29 @@
     border: 1px solid rgba(255, 255, 255, 0.18);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
-    border-radius: 10px;
+    border-radius: 50px;
+}
+
+.glass2 {
+    background: rgba(255, 255, 255, 0.2);
+    box-shadow: 8px 8px 8px 8px rgba(31, 38, 135, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
 }
 
 body {
     background: url('https://i.ibb.co.com/LvgHJbt/Designer.jpg');
     background-size: cover;
-    /* background-repeat: no-repeat; */
+    background-repeat: no-repeat;
     background-attachment: fixed;
     background-position: center;
     font-family: 'Poppins', sans-serif;
-    color: #333;
     margin: 0;
     padding: 0;
+    box-shadow: 8px 8px 8px 8px rgba(31, 38, 135, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
 }
 

@@ -3,15 +3,14 @@ import PasswordInput from "../components/functionalComponents/PasswordInput";
 import { useContext, useState } from "react";
 import { MessageContext } from "./Root";
 import { AuthContext } from "../Auth/AuthProvider";
-import Loader from './../components/shared/Loader';
-import useAxiosSecure from './../hooks/useAxiosSecure';
-
-
+import Loader from "./../components/shared/Loader";
+import useAxiosSecure from "./../hooks/useAxiosSecure";
 
 const Register = () => {
     const [password, setPassword] = useState("");
     const [confirmation, setConfirmation] = useState("");
-    const { createUser, updateUserProfile, loading, setLoading } = useContext(AuthContext);
+    const { createUser, updateUserProfile, loading, setLoading } =
+        useContext(AuthContext);
 
     const axiosSecure = useAxiosSecure();
 
@@ -31,7 +30,9 @@ const Register = () => {
         const name = formData.get("name");
         const age = formData.get("age");
         const gender = formData.get("gender");
-        const url = formData.get("url") || "https://i.ibb.co.com/hYbbGyR/6596121-modified.png";
+        const url =
+            formData.get("url") ||
+            "https://i.ibb.co.com/hYbbGyR/6596121-modified.png";
 
         //password validation
         if (password.length < 6) {
@@ -63,7 +64,8 @@ const Register = () => {
             })
             .catch((error) => {
                 notifyError(error.message);
-            }).finally(() => {
+            })
+            .finally(() => {
                 setLoading(false);
             });
 
@@ -73,9 +75,10 @@ const Register = () => {
             age,
             gender,
             url,
-        }
-        
-        axiosSecure.post("/createUser", user)
+        };
+
+        axiosSecure
+            .post("/createUser", user)
             .then(() => {
                 notifySuccess("User registered successfully");
                 navigate("/");
@@ -85,11 +88,11 @@ const Register = () => {
             });
     };
 
-    if (loading) return <Loader/>
+    if (loading) return <Loader />;
 
     return (
         <section className="h-[calc(100dvh-100px)] lg:w-full flex items-center justify-center mt-20">
-            <div className="glass-morph animate__animated animate__fadeIn xl:mx-auto xl:min-w-fit custom-shadow p-10 xl:max-w-sm 2xl:max-w-md rounded-lg  mx-3 mt-8">
+            <div className="glass2 animate__animated animate__fadeIn xl:mx-auto xl:min-w-fit custom-shadow p-10 xl:max-w-sm 2xl:max-w-md rounded-lg  mx-3 mt-8">
                 <div className="mb-2 flex justify-center"></div>
                 <h2 className="text-center text-2xl font-bold leading-tight text-primary">
                     Regsiter for an account
@@ -221,17 +224,18 @@ const Register = () => {
                         <div className="text-sm text-gray-900">
                             {password.length < 6 ? (
                                 <p className="text-black">
-                                    Password must be at least 6 characters long ❌
+                                    Password must be at least 6 characters long
+                                    ❌
                                 </p>
                             ) : !/[a-z]/.test(password) ? (
                                 <p className="text-black">
-                                    Password must contain at least one lowercase ❌
-                                    letter
+                                    Password must contain at least one lowercase
+                                    letter ❌
                                 </p>
                             ) : !/[A-Z]/.test(password) ? (
                                 <p className="text-black">
-                                    Password must contain at least one uppercase ❌
-                                    letter
+                                    Password must contain at least one uppercase
+                                    letter ❌
                                 </p>
                             ) : !/\d/.test(password) ? (
                                 <p className="text-black">
@@ -239,8 +243,13 @@ const Register = () => {
                                 </p>
                             ) : !/[@$!%*?&]/.test(password) ? (
                                 <p className="text-black">
-                                    Password must contain at least one special ❌
-                                    character
+                                    Password must contain at least one special
+                                    character ❌
+                                </p>
+                            ) : //passwords don't match
+                            password !== confirmation && confirmation != "" ? (
+                                <p className="text-black">
+                                    Passwords do not match ❌
                                 </p>
                             ) : (
                                 <p className="text-black">

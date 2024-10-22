@@ -7,14 +7,15 @@ import Root from "./pages/Root";
 import Home from "./pages/Home";
 import AuthProvider from "./Auth/AuthProvider";
 import Register from "./pages/Register";
-// import PrivateRoute from "./Auth/PrivateRoute";
-import Error404 from './pages/Error404';
+import PrivateRoute from "./Auth/PrivateRoute";
+import Error404 from "./pages/Error404";
+import SkinCheck from "./pages/SkinCheck";
 
 const router = createBrowserRouter([
     {
         path: "/",
         element: <Root />,
-        errorElement: <Error404/>,
+        errorElement: <Error404 />,
         children: [
             {
                 path: "/",
@@ -22,13 +23,11 @@ const router = createBrowserRouter([
             },
             {
                 path: "/login",
-                element: (
-                        <Login />
-                ),
+                element: <Login />,
             },
             {
                 path: "/register",
-                element: <Register/>,
+                element: <Register />,
             },
             {
                 path: "/prevention",
@@ -36,12 +35,16 @@ const router = createBrowserRouter([
             },
             {
                 path: "/skin-check",
-                element: <div className="mt-32">Skin Check</div>,
+                element: (
+                    <PrivateRoute>
+                        <SkinCheck />
+                    </PrivateRoute>
+                ),
             },
             {
                 path: "/early-detection",
                 element: <div className="mt-32">Early Detection</div>,
-            }
+            },
         ],
     },
 ]);

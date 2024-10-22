@@ -44,7 +44,7 @@ const Login = () => {
 
     return (
         <section className="h-[calc(100dvh-100px)] w-full flex items-center justify-center mt-20">
-            <div className="glass-morph animate__animated animate__fadeIn xl:mx-auto xl:w-full custom-shadow p-10 xl:max-w-lg 2xl:max-w-lg rounded-lg mx-3 mt-8">
+            <div className="glass2 animate__animated animate__fadeIn xl:mx-auto xl:w-full custom-shadow p-10 xl:max-w-lg 2xl:max-w-lg rounded-lg mx-3 mt-8">
                 <h2 className="text-center text-2xl font-bold leading-tight text-primary">
                     Sign in to your account
                 </h2>

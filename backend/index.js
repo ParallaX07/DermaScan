@@ -64,6 +64,17 @@ async function run() {
                 console.error(error);
             }
         });
+
+        //get user image by email
+        app.get("/userImage/:email", async (req, res) => {
+            try {
+                const email = req.params.email;
+                const userImages = await skinImages.find({ user: email }).toArray();
+                res.send(userImages);
+            } catch (error) {
+                console.error(error);
+            }
+        });
     } finally {
     }
 }

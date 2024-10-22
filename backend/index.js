@@ -51,7 +51,11 @@ async function run() {
         app.post("/upload-image", async (req, res) => {
             try {
                 const newImage = req.body;
-                const result = await skinImages.insertOne(newImage);
+                //find user gender using email
+                const user = await users.findOne({ email: newImage.user });
+                //append gender to newImage
+                const newImageUpdated = { ...newImage, gender: user.gender };
+                const result = await skinImages.insertOne(newImageUpdated);
                 res.send(result);
             } catch (error) {
                 console.error(error);

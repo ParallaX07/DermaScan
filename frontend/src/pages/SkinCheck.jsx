@@ -172,6 +172,16 @@ const SkinCheck = () => {
                 <div className="flex justify-center mt-5">
                     <FileUploadButton fileInputRef={fileInputRef} img={img} />
                 </div>
+                {/* selected body part */}
+                <div className="mt-5 capitalize flex  items-center gap-2 font-semibold text-lg">
+                        Selected Body Part:{" "}
+                    <p className="font-normal">
+                        {!params ? "No Selection" : selectedParts.map((str) => {
+                            return str.replace(/_/g, " ");
+                        })}
+                    </p>
+                </div>
+                <div className="text-sm text-gray-700">Please deselect a body part before selecting another reagion</div>
                 <button className="mt-5 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
                     Start Analysis
                 </button>

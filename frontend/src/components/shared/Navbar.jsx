@@ -183,7 +183,7 @@ const NavBar = () => {
                                 Scan
                             </span>
                         </h1>
-                        <p className="text-accent text-xs lg:text-sm font-bold">
+                        <p className="text-primary text-xs lg:text-sm font-bold">
                         Detect. Diagnose. Protect.
                         </p>
                     </div>

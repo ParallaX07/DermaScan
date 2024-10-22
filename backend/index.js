@@ -32,13 +32,23 @@ const client = new MongoClient(uri, {
 async function run() {
     try {
         const database = client.db("dermascan");
-        const collection = database.collection("users");
-
+        const users = database.collection("users");
+        const skinImages = database.collection("skinImages");
         // Create a new user
         app.post("/createUser", async (req, res) => {
             try {
                 const newUser = req.body;
-                const result = await collection.insertOne(newUser);
+                const result = await users.insertOne(newUser);
+                res.send(result);
+            } catch (error) {
+                console.error(error);
+            }
+        });
+
+        app.post("/upload-image", async (req, res) => {
+            try {
+                const newImage = req.body;
+                const result = await skinImages.insertOne(newImage);
                 res.send(result);
             } catch (error) {
                 console.error(error);
@@ -48,7 +58,7 @@ async function run() {
         // get all users
         app.get("/allUsers", async (req, res) => {
             try {
-                const allUsers = await collection.find().toArray();
+                const allUsers = await users.find().toArray();
                 res.send(allUsers);
             } catch (error) {
                 console.error(error);

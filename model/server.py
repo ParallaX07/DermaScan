@@ -21,10 +21,10 @@ async def getPendingImage():
     imageId = pendingImage["imageId"]
     skinImage = skinImagesCollection.find_one({"_id": ObjectId(imageId)})
     image_base64 = skinImage["image"]
-    
+
     # Convert base64 string to bytes
     image_bytes = base64.b64decode(image_base64)
-    with open(f"./dataset/userImages/{imageId}.jpg", "wb") as file:
+    with open(f"./dataset/userImages/pending/{imageId}.jpg", "wb") as file:
         file.write(image_bytes)
 
     # update pending image to pending result

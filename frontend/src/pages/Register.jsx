@@ -12,7 +12,7 @@ const Register = () => {
     const { createUser, updateUserProfile, loading, setLoading } =
         useContext(AuthContext);
 
-    const axiosSecure = useAxiosSecure();
+    const axiosSecure5000 = useAxiosSecure(5000);
 
     const { notifyError, notifySuccess } = useContext(MessageContext);
 
@@ -77,7 +77,7 @@ const Register = () => {
             url,
         };
 
-        axiosSecure
+        axiosSecure5000
             .post("/createUser", user)
             .then(() => {
                 notifySuccess("User registered successfully");

@@ -72,3 +72,5 @@ venv
 # image dataset
 archive
 ham10000
+__pycache__
+model/dataset

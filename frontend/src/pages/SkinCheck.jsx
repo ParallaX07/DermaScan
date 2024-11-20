@@ -75,9 +75,10 @@ const SkinCheck = () => {
     const [img, setImg] = useState(null);
 
     const { user } = useContext(AuthContext);
-    const { notifyError } = useContext(MessageContext);
+    const { notifySuccess, notifyError } = useContext(MessageContext);
 
-    const axiosSecure = useAxiosSecure();
+    const axiosSecure5000 = useAxiosSecure(5000);
+    const axiosSecure8000 = useAxiosSecure(8000);
 
     //handle click event of body parts
     const handleBodyPartClick = (part) => {
@@ -138,7 +139,7 @@ const SkinCheck = () => {
             buttonsStyling: false,
         }).then((result) => {
             if (result.isConfirmed) {
-                axiosSecure
+                axiosSecure5000
                     .post("/upload-image", skinImage)
                     .then((res) => {
                         console.log("Response:", res.data);
@@ -151,6 +152,12 @@ const SkinCheck = () => {
                     .catch((err) => {
                         console.error(err);
                     });
+
+                setTimeout(() => {
+                    axiosSecure8000.get(`/getPendingImage/`).then(() => {
+                        notifySuccess("Image is being analyzed");
+                    });
+                }, 3000);
             }
         });
     };
@@ -174,14 +181,18 @@ const SkinCheck = () => {
                 </div>
                 {/* selected body part */}
                 <div className="mt-5 capitalize flex  items-center gap-2 font-semibold text-lg">
-                        Selected Body Part:{" "}
+                    Selected Body Part:{" "}
                     <p className="font-normal">
-                        {!params ? "No Selection" : selectedParts.map((str) => {
-                            return str.replace(/_/g, " ");
-                        })}
+                        {!params
+                            ? "No Selection"
+                            : selectedParts.map((str) => {
+                                  return str.replace(/_/g, " ");
+                              })}
                     </p>
                 </div>
-                <div className="text-sm text-gray-700">Please deselect a body part before selecting another reagion</div>
+                <div className="text-sm text-gray-700">
+                    Please deselect a body part before selecting another reagion
+                </div>
                 <button className="mt-5 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
                     Start Analysis
                 </button>

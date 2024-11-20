@@ -15,7 +15,7 @@ analysisResultsCollection = dermascanDB["analysisResults"]
 # api to create a new image to the model folder
 @app.get("/getPendingImage")
 async def getPendingImage():
-    pendingImage = analysisResultsCollection.find_one({"status": "pending"})
+    pendingImage = analysisResultsCollection.find_one({"status": "pending image"})
     if pendingImage is None:
         raise HTTPException(status_code=404, detail="No pending image")
     imageId = pendingImage["imageId"]

@@ -34,6 +34,7 @@ async function run() {
         const database = client.db("dermascan");
         const users = database.collection("users");
         const skinImages = database.collection("skinImages");
+        const analysisResults = database.collection("analysisResults");
 
         // Create a new user
         app.post("/createUser", async (req, res) => {
@@ -56,6 +57,14 @@ async function run() {
                 //append gender to newImage
                 const newImageUpdated = { ...newImage, gender: user.gender };
                 const result = await skinImages.insertOne(newImageUpdated);
+                // make an entry in analysisResults collection with status pending
+                const analysisResult = {
+                    user: newImage.user,
+                    imageId: result.insertedId,
+                    status: "pending image",
+                    result: null,
+                };
+                await analysisResults.insertOne(analysisResult);
                 res.send(result);
             } catch (error) {
                 console.error(error);

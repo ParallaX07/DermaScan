@@ -5,6 +5,7 @@ import PropTypes from "prop-types";
 import { MessageContext } from "./Root";
 import useAxiosSecure from "../hooks/useAxiosSecure";
 import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
 
 const FileUploadButton = ({ fileInputRef, img }) => {
     return (
@@ -68,6 +69,8 @@ FileUploadButton.propTypes = {
 
 const SkinCheck = () => {
     const [params, setParam] = useState();
+
+    const navigate = useNavigate();
 
     //set of selected body parts
     const [selectedParts, setSelectedParts] = useState([]);
@@ -175,6 +178,8 @@ const SkinCheck = () => {
                                     console.error(err);
                                 });
                         }, 3000);
+
+                        navigate("/results");
                     })
                     .catch((err) => {
                         console.error(err);

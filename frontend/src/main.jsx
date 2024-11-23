@@ -10,6 +10,7 @@ import Register from "./pages/Register";
 import PrivateRoute from "./Auth/PrivateRoute";
 import Error404 from "./pages/Error404";
 import SkinCheck from "./pages/SkinCheck";
+import MyResults from "./pages/MyResults";
 
 const router = createBrowserRouter([
     {
@@ -40,6 +41,14 @@ const router = createBrowserRouter([
                         <SkinCheck />
                     </PrivateRoute>
                 ),
+            },
+            {
+                path: "/results",
+                element: (
+                    <PrivateRoute>
+                        <MyResults />
+                    </PrivateRoute>
+                )
             },
             {
                 path: "/early-detection",

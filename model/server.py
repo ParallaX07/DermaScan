@@ -86,13 +86,6 @@ async def getResults(user: str):
         results_list.append(result_dict)
     return {"results": results_list}
 
-
-
-
-
-
-
-
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run(app, host="0.0.0.0", port=8000)

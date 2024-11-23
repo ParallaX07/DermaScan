@@ -156,6 +156,16 @@ const NavBar = () => {
             </li>
             <li>
                 <NavLink
+                    to="/results"
+                    className={({ isActive }) =>
+                        isActive ? `${active}` : `${inactive}`
+                    }
+                >
+                    My Results
+                </NavLink>
+            </li>
+            <li>
+                <NavLink
                     to="/early-detection"
                     className={({ isActive }) =>
                         isActive ? `${active}` : `${inactive}`

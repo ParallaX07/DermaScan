@@ -55,7 +55,7 @@ async function run() {
                 //find user gender using email
                 const user = await users.findOne({ email: newImage.user });
                 //append gender to newImage
-                const newImageUpdated = { ...newImage, gender: user.gender };
+                const newImageUpdated = { ...newImage, gender: user.gender, age : user.age };
                 const result = await skinImages.insertOne(newImageUpdated);
                 // make an entry in analysisResults collection with status pending
                 const analysisResult = {

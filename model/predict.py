@@ -38,7 +38,6 @@ def predict_thisImage(image_path):
     probabilities = {classes[i][1]: float(predictions[0][i]) for i in range(len(classes))}
     
     result = {
-        "imageID": imageID,
         **probabilities
     }
     return result

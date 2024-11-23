@@ -148,16 +148,37 @@ const SkinCheck = () => {
                         setImg(null);
                         setParam("");
                         setSelectedParts([]);
+
+                        let returnedImageID = "";
+
+                        // Wait for the image to be analyzed and get the image ID
+                        setTimeout(() => {
+                            Promise.all([
+                                axiosSecure8000.get("/getPendingImage"),
+                                new Promise((resolve) =>
+                                    setTimeout(resolve, 3000)
+                                ), // Wait for 3 seconds
+                            ])
+                                .then(([imageRes]) => {
+                                    notifySuccess("Image is being analyzed");
+                                    returnedImageID = imageRes.data.imageId;
+
+                                    // Run prediction using the returned image ID
+                                    return axiosSecure8000.get(
+                                        `/runPrediction/${returnedImageID}`
+                                    );
+                                })
+                                .then(() => {
+                                    notifySuccess("Analysis completed");
+                                })
+                                .catch((err) => {
+                                    console.error(err);
+                                });
+                        }, 3000);
                     })
                     .catch((err) => {
                         console.error(err);
                     });
-
-                setTimeout(() => {
-                    axiosSecure8000.get(`/getPendingImage/`).then(() => {
-                        notifySuccess("Image is being analyzed");
-                    });
-                }, 3000);
             }
         });
     };

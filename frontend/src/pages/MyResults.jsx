@@ -122,6 +122,15 @@ const MyResults = () => {
 
     if (loading) return <Loader />;
 
+    if (allResults.length === 0) {
+        return (
+            <div className="flex flex-col items-center justify-center h-96">
+                <h1 className="text-3xl font-bold">No Results Found</h1>
+                <p className="text-lg">Please upload an image to get results</p>
+            </div>
+        );
+    }
+
     return (
         <div className="pt-24 flex gap-10">
             <table className=" border-x-2 border-t-2 glass2  mx-auto table-auto overflow-auto my-10 rounded-lg transition duration-300">
@@ -185,9 +194,9 @@ const MyResults = () => {
                                         </p>
                                     ))}
                                 </td>
-                                <td className="">
+                                <td className="px-4">
                                     <button
-                                        className="bg-primary text-accent px-4 py-2 rounded-lg"
+                                        className="bg-primary text-accent px-2 py-1 rounded-lg"
                                         onClick={() =>
                                             showAllResults(result?.result)
                                         }

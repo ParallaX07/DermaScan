@@ -155,6 +155,7 @@ const SkinCheck = () => {
                         let returnedImageID = "";
 
                         // Wait for the image to be analyzed and get the image ID
+                        notifySuccess("Image is being analyzed");
                         setTimeout(() => {
                             Promise.all([
                                 axiosSecure8000.get("/getPendingImage"),
@@ -163,7 +164,7 @@ const SkinCheck = () => {
                                 ), // Wait for 3 seconds
                             ])
                                 .then(([imageRes]) => {
-                                    notifySuccess("Image is being analyzed");
+                                    
                                     returnedImageID = imageRes.data.imageId;
 
                                     // Run prediction using the returned image ID

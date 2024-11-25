@@ -5,10 +5,23 @@ import { MdPendingActions } from "react-icons/md";
 import { SiTicktick } from "react-icons/si";
 import Loader from "../components/shared/Loader";
 import Swal from "sweetalert2";
+import { Link } from "react-router-dom";
+import { Tooltip } from "react-tooltip";
 
 const MyResults = () => {
     const axiosSecure8000 = useAxiosSecure(8000);
     const { user, loading, setLoading } = useContext(AuthContext);
+
+        //key value pairs of the disease and the corresponding dermnet link
+        const dermnetLinks = {
+            "basal cell carcinoma": "https://dermnetnz.org/topics/basal-cell-carcinoma",
+            "melanoma": "https://dermnetnz.org/topics/melanoma",
+            "dermatofibroma": "https://dermnetnz.org/topics/dermatofibroma",
+            "melanocytic naevi": "https://dermnetnz.org/topics/melanocytic-naevi",
+            "pyogenic granulomas and hemorrhage": "https://dermnetnz.org/topics/pyogenic-granuloma",
+            "benign keratosis-like lesions": "https://dermnetnz.org/topics/seborrhoeic-keratosis",
+            "Actinic keratoses and intraepithelial carcinomae": "https://dermnetnz.org/topics/actinic-keratosis",
+        }
 
     const showFullImage = (image) => {
         const fullImage = document.createElement("div");
@@ -185,9 +198,9 @@ const MyResults = () => {
                                     ).map(([key, res], index) => (
                                         <p
                                             key={index}
-                                            className="capitalize flex items-center justify-between gap-20 "
+                                            className="capitalize flex items-center justify-between gap-20 clicklink"
                                         >
-                                            <span className="text-gray-800 font-semibold">{key}:</span>
+                                            <Link to={dermnetLinks[key]} target="_blank" className="hover:underline-offset-4 hover:underline"><span className="text-gray-800 font-semibold">{key}:</span></Link>
                                             <span className="just">
                                                 {(res * 100).toFixed(1)}%
                                             </span>
@@ -208,6 +221,19 @@ const MyResults = () => {
                         ))}
                 </tbody>
             </table>
+            <Tooltip
+                anchorSelect=".clicklink"
+                place="left"
+                style={{
+                    backgroundColor: "rgba(0, 119, 182, 1)",
+                    color: "rgb(255, 255, 255)",
+                    borderColor: "rgba(0, 119, 182, 1)",
+                    borderWidth: "2px",
+                    fontWeight: "700",
+                }}
+            >
+                {"Click to know more"}
+            </Tooltip>
         </div>
     );
 };

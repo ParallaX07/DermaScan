@@ -6,8 +6,6 @@ from bson import ObjectId
 from predict import predict_thisImage
 import shutil
 
-
-
 app = FastAPI()
 
 # Make connection to MongoDB

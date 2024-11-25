@@ -8,13 +8,13 @@ classes = {
     1: ('bcc', 'basal cell carcinoma'),
     2: ('bkl', 'benign keratosis-like lesions'),
     3: ('df', 'dermatofibroma'),
-    4: ('nv', 'melanocytic nevi'),
+    4: ('nv', 'melanocytic naevi'),
     5: ('vasc', 'pyogenic granulomas and hemorrhage'),
     6: ('mel', 'melanoma')
 }
 
 
-model = load_model('complete_model-vgg16-initial_param.keras')
+model = load_model('best_model_vgg16-15freeze-unfreeze.keras')
 
 
 def preprocess_image(image_path):

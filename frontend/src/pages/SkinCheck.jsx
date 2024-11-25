@@ -160,8 +160,8 @@ const SkinCheck = () => {
                             Promise.all([
                                 axiosSecure8000.get("/getPendingImage"),
                                 new Promise((resolve) =>
-                                    setTimeout(resolve, 3000)
-                                ), // Wait for 3 seconds
+                                    setTimeout(resolve, 2000)
+                                ), // Wait for 2 seconds
                             ])
                                 .then(([imageRes]) => {
                                     
@@ -189,6 +189,37 @@ const SkinCheck = () => {
         });
     };
 
+    const handleCameraClick = async () => {
+        try {
+            const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+            const video = document.createElement("video");
+            video.srcObject = stream;
+            video.play();
+
+            const canvas = document.createElement("canvas");
+            const context = canvas.getContext("2d");
+
+            Swal.fire({
+                title: "Capture Image",
+                html: video,
+                showCancelButton: true,
+                confirmButtonText: "Capture",
+                preConfirm: () => {
+                    context.drawImage(video, 0, 0, canvas.width, canvas.height);
+                    const dataUrl = canvas.toDataURL("image/jpeg");
+                    setImg(dataUrl.split(",")[1]); // Extract base64 string
+                    stream.getTracks().forEach((track) => track.stop());
+                },
+                willClose: () => {
+                    stream.getTracks().forEach((track) => track.stop());
+                },
+            });
+        } catch (error) {
+            console.error("Error accessing camera:", error);
+            notifyError("Error accessing camera");
+        }
+    };
+
     return (
         <div className="min-h-[calc(100dvh-5px)] pt-24 flex justify-center items-center gap-10">
             <div>
@@ -206,6 +237,7 @@ const SkinCheck = () => {
                 <div className="flex justify-center mt-5">
                     <FileUploadButton fileInputRef={fileInputRef} img={img} />
                 </div>
+                
                 {/* selected body part */}
                 <div className="mt-5 capitalize flex  items-center gap-2 font-semibold text-lg">
                     Selected Body Part:{" "}
@@ -218,11 +250,20 @@ const SkinCheck = () => {
                     </p>
                 </div>
                 <div className="text-sm text-gray-700">
-                    Please deselect a body part before selecting another reagion
+                    Please deselect a body part before selecting another region
                 </div>
-                <button className="mt-5 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                    Start Analysis
-                </button>
+                <div className="flex justify-center mt-5 gap-5">
+                    <button
+                        type="button"
+                        onClick={handleCameraClick}
+                        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                    >
+                        Use Camera
+                    </button>
+                    <button className=" bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                        Start Analysis
+                    </button>
+                </div>
             </form>
         </div>
     );

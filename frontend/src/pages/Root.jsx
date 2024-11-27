@@ -3,6 +3,7 @@ import { createContext, useEffect, useState, useCallback } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import { IoIosArrowUp } from "react-icons/io";
 import NavBar from "../components/shared/Navbar";
+import ChatWindow from "../components/shared/ChatWindow";
 
 const MessageContext = createContext();
 
@@ -78,6 +79,7 @@ const Root = () => {
                     <IoIosArrowUp className="text-2xl" />
                 </div>
             )}
+            <ChatWindow />
 
             <Toaster position="top-right" reverseOrder={false} />
         </>

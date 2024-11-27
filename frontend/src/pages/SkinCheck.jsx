@@ -221,7 +221,7 @@ const SkinCheck = () => {
     };
 
     return (
-        <div className="min-h-[calc(100dvh-5px)] pt-24 flex justify-center items-center gap-10">
+        <div className="min-h-[calc(100dvh-5px)] pt-24 flex lg:flex-row flex-col justify-center items-center gap-10 lg:my-0 my-10">
             <div>
                 <BodyComponent
                     partsInput={params}
@@ -230,7 +230,7 @@ const SkinCheck = () => {
             </div>
             {/*Upload image option*/}
             <form
-                className="flex flex-col items-center justify-center"
+                className="flex flex-col items-center justify-center lg:text-left text-center"
                 onSubmit={handleFileUpload}
                 onChange={handleFileChange}
             >

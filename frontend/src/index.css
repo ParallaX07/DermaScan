@@ -65,7 +65,7 @@ body::after {
     content: '';
     position: absolute;
     z-index: -1;
-    opacity: 0.8
+    opacity: 0.8;
 }
 
 body::before {
@@ -79,55 +79,62 @@ body::before {
     left: calc(50vw);
 }
 
+/* Base styles for mobile */
 body::after {
     background: var(--secondary-glow);
     border-radius: 50%;
-    width: 500px;
-    height: 700px;
-    filter: blur(90px);
-    top: calc(50vh - 50vw/2);
-    left: calc(50vw - 50vw/2);
+    width: 250px; /* Smaller base width */
+    height: 350px; /* Smaller base height */
+    filter: blur(45px); /* Reduced blur */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
-
-@keyframes animateBefore {
-    0% {
-        transform: translateY(0);
-    }
-
-    50% {
-        transform: translateY(200px) scale(0.8);
-
-    }
-
-    100% {
-        transform: translateY(0);
+/* Larger dimensions for desktop */
+@media (min-width: 1024px) {
+    body::after {
+        width: 500px;
+        height: 700px;
+        filter: blur(90px);
+        top: calc(50vh - 50vw/2);
+        left: calc(50vw - 50vw/2);
     }
 }
 
-@keyframes animateAfter {
-    0% {
-        transform: translateX(0);
+/* Animations only for large screens */
+@media (min-width: 1024px) {
+    @keyframes animateBefore {
+        0% {
+            transform: translateY(0);
+        }
+        50% {
+            transform: translateY(200px) scale(0.8);
+        }
+        100% {
+            transform: translateY(0);
+        }
     }
 
-    50% {
-        transform: translateX(-10px) scale(3);
-
+    @keyframes animateAfter {
+        0% {
+            transform: translateX(0);
+        }
+        50% {
+            transform: translateX(-10px) scale(3);
+        }
+        100% {
+            transform: translateX(0);
+        }
     }
 
-    100% {
-        transform: translateX(0);
+    body::before {
+        animation: animateBefore 7s cubic-bezier(0.47, 0, 0.745, 0.715) infinite;
     }
-}
 
-body::before {
-    /*...previous props*/
-    animation: animateBefore 7s cubic-bezier(0.47, 0, 0.745, 0.715) infinite;
-}
-
-body::after {
-    /*...previous props*/
-    animation: animateAfter 7s cubic-bezier(0.47, 0, 0.745, 0.715) infinite;
+    body::after {
+        animation: animateAfter 7s cubic-bezier(0.47, 0, 0.745, 0.715) infinite;
+    }
 }
 
 
@@ -142,6 +149,15 @@ body::after {
     box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
     backdrop-filter: blur(4px);
     -webkit-backdrop-filter: blur(4px);
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+.glass-chat {
+    background: rgba(255, 255, 255, 0.25);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
     border-radius: 10px;
     border: 1px solid rgba(255, 255, 255, 0.18);
 }

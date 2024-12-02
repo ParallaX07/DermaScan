@@ -66,6 +66,7 @@ const ChatWindow = () => {
                     - Always recommend consulting healthcare professionals for specific medical advice
                     - Keep responses concise and informative, avoiding overly technical jargon
                     - Go into detail only if the user asks for it or if it's necessary to provide accurate information
+                    - Give your responses in Markdown formatting
                     
                     Example responses:
                     - For ANY non-skin question: "I apologize, but I can only assist with questions about skin health and dermatology. Please feel free to ask me about any skin-related concerns." But respond to the coversational questions like, "How are you?", or "Hello" or any greetings with a friendly response.
@@ -97,7 +98,7 @@ const ChatWindow = () => {
                 onClick={() => setShowChat(!showChat)}
                 className="fixed bottom-16 right-5 bg-primary text-white p-3 rounded-full cursor-pointer hover:bg-opacity-80 transition-all duration-300 z-50"
             >
-                <IoChatbubble className="text-2xl" />
+                <IoChatbubble className="text-4xl" />
             </button>
 
             {showChat && (

@@ -8,27 +8,28 @@ const Home = () => {
     useDocumentTitle("Home | DermaDoc");
 
     return (
-        <div className="pt-32  min-h-dvh flex flex-col justify-center items-center text-center glass-chat">
-            <section className=" flex flex-col justify-center items-center text-center mx-10">
-                <div className="flex items-center pb-12">
-                    <div className="flex flex-col">
+        <div className="pt-32 min-h-dvh flex flex-col justify-center items-center text-center glass-chat">
+            <section className=" flex flex-col justify-center items-center text-center mx-20">
+                <div className="flex items-center gap-16">
+                    <div className="flex flex-col justify-center items-center">
                         <h1 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl lg:text-6xl">
                             AI-Powered Skin Disease Detection
                         </h1>
                         <p className="mx-auto max-w-[700px] text-gray-500 md:text-xl font-bold">
-                            Detect and analyze skin conditions with the power of artificial
-                            intelligence. Fast, accurate, and non-invasive.
+                            Detect and analyze skin conditions with the power of
+                            artificial intelligence. Fast, accurate, and
+                            non-invasive.
                         </p>
+                        <button className="mt-5 px-8 py-3 bg-primary text-white font-bold rounded-lg shadow-lg hover:bg-primary-dark w-fit">
+                            <Link to="/skin-check">Get Started</Link>
+                        </button>
                     </div>
-                    <img src="https://dp9eps5gd5xd0.cloudfront.net/images/news/ImageForNews_15227_17254650737621930.jpg" className="max-h-[400px] rounded-lg" alt="" />
                 </div>
-                <button className="mt-5 px-8 py-3 bg-primary text-white font-bold rounded-lg shadow-lg hover:bg-primary-dark">
-                    <Link to="/skin-check">Get Started</Link>
-                </button>
             </section>
-            <section className="w-full pb-12 pt-12 mt-8 flex justify-center items-center glass-morph">
-                <div className="container px-4 md:px-6">
-                    <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl text-center mb-12">
+            <hr className="border-primary opacity-30 w-3/4 border-2 my-12" />
+            <section className="w-full flex justify-center items-center">            
+                <div className="container px-4">
+                    <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl text-center mb-8">
                         How It Works
                     </h2>
                     <div className="grid gap-10 sm:grid-cols-2 md:grid-cols-3 max-w-5xl mx-auto">

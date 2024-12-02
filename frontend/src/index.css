@@ -121,7 +121,7 @@ body::after {
             transform: translateX(0);
         }
         50% {
-            transform: translateX(-10px) scale(3);
+            transform: translateX(-10px) scale(2);
         }
         100% {
             transform: translateX(0);

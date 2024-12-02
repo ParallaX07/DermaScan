@@ -56,7 +56,7 @@ const ChatWindow = () => {
             const prediction = modelRef.current.respond([
                 { 
                     role: "system", 
-                    content: `You are DermaDoc, a friendly and knowledgeable virtual assistant specializing EXCLUSIVELY in dermatology and skin health.
+                    content: `You are DermaDoc, a friendly and knowledgeable virtual assistant for DermaScan specializing EXCLUSIVELY in dermatology and skin health.
                 
                     Core behaviors:
                     - ONLY respond to questions about skin conditions, diseases, and dermatological concerns
@@ -101,7 +101,7 @@ const ChatWindow = () => {
             </button>
 
             {showChat && (
-                <div className="fixed bottom-10 right-5 w-[500px] h-[630px] glass-chat rounded-lg shadow-lg animate__animated animate__fadeIn z-[99999]">
+                <div className="fixed bottom-10 right-5 w-[550px] h-[630px] glass-chat rounded-lg shadow-lg animate__animated animate__fadeIn z-[99999]">
                     <div className="flex justify-between items-center p-3 border-b border-primary">
                         <div className='flex gap-3 justify-center items-center'>
                         <img
@@ -129,13 +129,13 @@ const ChatWindow = () => {
                         <ReactMarkdown 
                             remarkPlugins={[remarkGfm]}
                             components={{
-                                p: ({node, ...props}) => <p className="my-2" {...props} />,
-                                h1: ({node, ...props}) => <h1 className="text-2xl font-bold my-4" {...props} />,
-                                h2: ({node, ...props}) => <h2 className="text-xl font-bold my-3" {...props} />,
-                                ul: ({node, ...props}) => <ul className="list-disc ml-4 my-2" {...props} />,
-                                ol: ({node, ...props}) => <ol className="list-decimal ml-4 my-2" {...props} />,
-                                li: ({node, ...props}) => <li className="my-1" {...props} />,
-                                code: ({node, inline, ...props}) => 
+                                p: ({...props}) => <p className="my-2" {...props} />,
+                                h1: ({...props}) => <h1 className="text-2xl font-bold my-4" {...props} />,
+                                h2: ({...props}) => <h2 className="text-xl font-bold my-3" {...props} />,
+                                ul: ({ ...props}) => <ul className="list-disc ml-4 my-2" {...props} />,
+                                ol: ({...props}) => <ol className="list-decimal ml-4 my-2" {...props} />,
+                                li: ({...props}) => <li className="my-1" {...props} />,
+                                code: ({inline, ...props}) => 
                                     inline ? 
                                         <code className="bg-gray-800 text-gray-200 px-1 rounded" {...props} /> :
                                         <code className="block bg-gray-800 text-gray-200 p-2 rounded my-2 overflow-x-auto" {...props} />

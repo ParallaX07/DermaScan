@@ -7,8 +7,11 @@ import Loader from "../components/shared/Loader";
 import Swal from "sweetalert2";
 import { Link } from "react-router-dom";
 import { Tooltip } from "react-tooltip";
+import useDocumentTitle from "../hooks/useDocumentTitle";
 
 const MyResults = () => {
+    useDocumentTitle("My Results | DermaDoc");
+
     const axiosSecure8000 = useAxiosSecure(8000);
     const { user, loading, setLoading } = useContext(AuthContext);
 
@@ -50,11 +53,13 @@ const MyResults = () => {
     useEffect(() => {
         let intervalId;
         let counter = 0;
+        
+        
 
         const fetchResults = () => {
             if (user) {
                 axiosSecure8000
-                    .get(`/allResults/${user?.email}`)
+                    .get(`/allResults/${user.email}`)
                     .then((res) => {
                         setAllResults(res.data.results);
                         console.log(res.data.results);
@@ -73,18 +78,31 @@ const MyResults = () => {
             setLoading(false);
             intervalId = setInterval(() => {
                 counter++;
-                if (counter < 5) { // Fetch results every 2 seconds for 10 seconds
+                if (counter < 5) { // Fetch results every .5 seconds for 5 times
                     fetchResults();
                 } else {
                     clearInterval(intervalId);
                 }
-            }, 2000); 
+            }, 200); 
         }
+
+        
 
         return () => {
             // Clear the interval when the component is unmounted
             clearInterval(intervalId);
         };
+    }, []);
+
+    useEffect(() => {
+        if (allResults.length === 0) {
+            setLoading(true);
+            const timer = setTimeout(() => {
+                setLoading(false);
+            }, 1000); // 1 second delay
+            
+            return () => clearTimeout(timer);
+        }
     }, []);
 
     const getTopThreeResults = (resultObject) => {
@@ -133,13 +151,19 @@ const MyResults = () => {
         });
     };
 
-    if (loading) return <Loader />;
+    // if (loading) return <Loader />;
 
     if (allResults.length === 0) {
         return (
             <div className="flex flex-col items-center justify-center h-96">
-                <h1 className="text-3xl font-bold">No Results Found</h1>
-                <p className="text-lg">Please upload an image to get results</p>
+                {loading ? (
+                    <Loader />
+                ) : (
+                    <>
+                        <h1 className="text-3xl font-bold">No Results Found</h1>
+                        <p className="text-lg">Please upload an image to get results</p>
+                    </>
+                )}
             </div>
         );
     }

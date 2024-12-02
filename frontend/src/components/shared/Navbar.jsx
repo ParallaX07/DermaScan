@@ -62,7 +62,7 @@ const NavBar = () => {
     const loggedInState = (
         <>
             <div className="flex gap-2 items-center">
-                <a className="profileImage" href="/update-profile">
+                <a className="profileImage">
                         <img
                             className="size-12 rounded-full"
                             src={user?.photoURL}

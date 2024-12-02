@@ -6,8 +6,11 @@ import { MessageContext } from "./Root";
 import useAxiosSecure from "../hooks/useAxiosSecure";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
+import useDocumentTitle from "../hooks/useDocumentTitle";
 
 const FileUploadButton = ({ fileInputRef, img }) => {
+    useDocumentTitle("Skin Check | DermaDoc");
+
     return (
         <div className="max-w-md mx-auto rounded-lg overflow-hidden">
             <div className="md:flex">
@@ -151,34 +154,14 @@ const SkinCheck = () => {
                         setImg(null);
                         setParam("");
                         setSelectedParts([]);
-
-                        let returnedImageID = "";
-
-                        // Wait for the image to be analyzed and get the image ID
                         notifySuccess("Image is being analyzed");
-                        setTimeout(() => {
-                            Promise.all([
-                                axiosSecure8000.get("/getPendingImage"),
-                                new Promise((resolve) =>
-                                    setTimeout(resolve, 2000)
-                                ), // Wait for 2 seconds
-                            ])
-                                .then(([imageRes]) => {
-                                    
-                                    returnedImageID = imageRes.data.imageId;
-
-                                    // Run prediction using the returned image ID
-                                    return axiosSecure8000.get(
-                                        `/runPrediction/${returnedImageID}`
-                                    );
-                                })
-                                .then(() => {
-                                    notifySuccess("Analysis completed");
-                                })
-                                .catch((err) => {
-                                    console.error(err);
-                                });
-                        }, 3000);
+                        axiosSecure8000("/processPendingImage")
+                            .then(() => {
+                                notifySuccess("Analysis completed");
+                            })
+                            .catch((err) => {
+                                console.error(err);
+                            });
 
                         navigate("/results");
                     })
@@ -191,7 +174,9 @@ const SkinCheck = () => {
 
     const handleCameraClick = async () => {
         try {
-            const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+            const stream = await navigator.mediaDevices.getUserMedia({
+                video: true,
+            });
             const video = document.createElement("video");
             video.srcObject = stream;
             video.play();
@@ -237,7 +222,7 @@ const SkinCheck = () => {
                 <div className="flex justify-center mt-5">
                     <FileUploadButton fileInputRef={fileInputRef} img={img} />
                 </div>
-                
+
                 {/* selected body part */}
                 <div className="mt-5 capitalize flex  items-center gap-2 font-semibold text-lg">
                     Selected Body Part:{" "}

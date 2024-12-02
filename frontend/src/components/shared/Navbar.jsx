@@ -136,16 +136,6 @@ const NavBar = () => {
             </li>
             <li>
                 <NavLink
-                    to="/prevention"
-                    className={({ isActive }) =>
-                        isActive ? `${active}` : `${inactive}`
-                    }
-                >
-                    Prevention
-                </NavLink>
-            </li>
-            <li>
-                <NavLink
                     to="/skin-check"
                     className={({ isActive }) =>
                         isActive ? `${active}` : `${inactive}`
@@ -162,16 +152,6 @@ const NavBar = () => {
                     }
                 >
                     My Results
-                </NavLink>
-            </li>
-            <li>
-                <NavLink
-                    to="/early-detection"
-                    className={({ isActive }) =>
-                        isActive ? `${active}` : `${inactive}`
-                    }
-                >
-                    Early Detection 
                 </NavLink>
             </li>
         </>

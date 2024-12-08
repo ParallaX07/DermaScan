@@ -5,6 +5,7 @@ import pymongo
 from bson import ObjectId
 from predict import predict_thisImage
 import shutil
+import time
 
 app = FastAPI()
 
@@ -19,13 +20,17 @@ async def root():
     return {"message": "Server for DermaScan model running"}
 
 # api to create a new image to the model folder
-@app.get("/getPendingImage")
-async def getPendingImage():
+@app.get("/processPendingImage")
+async def processPendingImage():
     pendingImage = analysisResultsCollection.find_one({"status": "pending image"})
     if pendingImage is None:
         raise HTTPException(status_code=404, detail="No pending image")
+    
     imageId = pendingImage["imageId"]
     skinImage = skinImagesCollection.find_one({"_id": ObjectId(imageId)})
+    if skinImage is None:
+        raise HTTPException(status_code=404, detail="Image not found")
+    
     image_base64 = skinImage["image"]
     gender = skinImage["gender"]
     age = skinImage["age"]
@@ -33,27 +38,13 @@ async def getPendingImage():
 
     # Convert base64 string to bytes
     image_bytes = base64.b64decode(image_base64)
-    with open(f"./dataset/userImages/pending/{imageId}-{gender}-{age}-{bodyPart}.jpg", "wb") as file:
+    image_path = f"./dataset/userImages/pending/{imageId}-{gender}-{age}-{bodyPart}.jpg"
+    with open(image_path, "wb") as file:
         file.write(image_bytes)
 
-    # update pending image to pending result
+    # time.sleep(2)
+    # Update pending image to pending result
     analysisResultsCollection.update_one({"_id": pendingImage["_id"]}, {"$set": {"status": "pending result"}})
-    return {"imageId": str(imageId)}
-
-@app.get("/runPrediction/{imageId}")
-async def runPrediction(imageId: str):
-    pendingImage = analysisResultsCollection.find_one({"status": "pending result"})
-    if pendingImage is None:
-        raise HTTPException(status_code=404, detail="No pending result for this image")
-
-    skinImage = skinImagesCollection.find_one({"_id": ObjectId(imageId)})
-    if skinImage is None:
-        raise HTTPException(status_code=404, detail="Image not found")
-
-    gender = skinImage["gender"]
-    age = skinImage["age"]
-    bodyPart = skinImage["bodyPart"]
-    image_path = f"./dataset/userImages/pending/{imageId}-{gender}-{age}-{bodyPart}.jpg"
 
     # Run prediction
     result = predict_thisImage(image_path)
@@ -63,7 +54,7 @@ async def runPrediction(imageId: str):
     # Update the analysis result with the prediction
     analysisResultsCollection.update_one({"_id": pendingImage["_id"]}, {"$set": {"status": "completed", "result": result}})
 
-    # move image to processed folder
+    # Move image to processed folder
     processed_image_path = f"./dataset/userImages/processed/{imageId}-{gender}-{age}-{bodyPart}.jpg"
     shutil.move(image_path, processed_image_path)
     

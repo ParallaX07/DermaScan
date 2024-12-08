@@ -62,7 +62,7 @@ const NavBar = () => {
     const loggedInState = (
         <>
             <div className="flex gap-2 items-center">
-                <a className="profileImage" href="/update-profile">
+                <a className="profileImage">
                         <img
                             className="size-12 rounded-full"
                             src={user?.photoURL}
@@ -136,16 +136,6 @@ const NavBar = () => {
             </li>
             <li>
                 <NavLink
-                    to="/prevention"
-                    className={({ isActive }) =>
-                        isActive ? `${active}` : `${inactive}`
-                    }
-                >
-                    Prevention
-                </NavLink>
-            </li>
-            <li>
-                <NavLink
                     to="/skin-check"
                     className={({ isActive }) =>
                         isActive ? `${active}` : `${inactive}`
@@ -162,16 +152,6 @@ const NavBar = () => {
                     }
                 >
                     My Results
-                </NavLink>
-            </li>
-            <li>
-                <NavLink
-                    to="/early-detection"
-                    className={({ isActive }) =>
-                        isActive ? `${active}` : `${inactive}`
-                    }
-                >
-                    Early Detection 
                 </NavLink>
             </li>
         </>

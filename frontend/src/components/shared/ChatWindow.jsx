@@ -1,6 +1,8 @@
 import { useState, useEffect, useRef } from 'react';
 import { IoClose, IoChatbubble } from 'react-icons/io5';
 import { LMStudioClient } from "@lmstudio/sdk";
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
 
 const ChatWindow = () => {
     const [showChat, setShowChat] = useState(false);
@@ -52,10 +54,29 @@ const ChatWindow = () => {
     
         try {
             const prediction = modelRef.current.respond([
-                { role: "system", content: "You are DermaDoc, a helpful assistant focused exclusively on answering questions related to skin diseases. Your responses must be concise, accurate, and limited to 200 words maximum. Always prioritize clarity and provide only medically reliable information. While assisting, emphasize the importance of consulting a qualified dermatologist or healthcare professional for accurate diagnosis and personalized treatment. Avoid offering definitive diagnoses or treatment plans, and remind users that your advice complements but does not replace professional medical expertise." },
+                { 
+                    role: "system", 
+                    content: `You are DermaDoc, a friendly and knowledgeable virtual assistant for DermaScan specializing EXCLUSIVELY in dermatology and skin health.
+                
+                    Core behaviors:
+                    - ONLY respond to questions about skin conditions, diseases, and dermatological concerns
+                    - For ANY non-skin-related questions, politely refuse with: "I apologize, but I can only assist with questions about skin health and dermatology. Please feel free to ask me about any skin-related concerns."
+                    - Never acknowledge or redirect non-skin topics
+                    - Never provide medical prescriptions or definitive diagnoses
+                    - Always recommend consulting healthcare professionals for specific medical advice
+                    - Keep responses concise and informative, avoiding overly technical jargon
+                    - Go into detail only if the user asks for it or if it's necessary to provide accurate information
+                    - Give your responses in Markdown formatting
+                    
+                    Example responses:
+                    - For ANY non-skin question: "I apologize, but I can only assist with questions about skin health and dermatology. Please feel free to ask me about any skin-related concerns." But respond to the coversational questions like, "How are you?", or "Hello" or any greetings with a friendly response.
+                    - For skin questions: [proceed with detailed, helpful response about skin health]`
+                },
                 ...messages,
                 userMessage
-            ]);
+            ], {
+                temperature: 0.49
+            });
     
             let fullResponse = '';
             for await (const text of prediction) {
@@ -77,11 +98,11 @@ const ChatWindow = () => {
                 onClick={() => setShowChat(!showChat)}
                 className="fixed bottom-16 right-5 bg-primary text-white p-3 rounded-full cursor-pointer hover:bg-opacity-80 transition-all duration-300 z-50"
             >
-                <IoChatbubble className="text-2xl" />
+                <IoChatbubble className="text-4xl" />
             </button>
 
             {showChat && (
-                <div className="fixed bottom-32 right-5 w-[500px] h-[500px] glass-chat rounded-lg shadow-lg animate__animated animate__fadeIn z-40">
+                <div className="fixed bottom-10 right-5 w-[550px] h-[630px] glass-chat rounded-lg shadow-lg animate__animated animate__fadeIn z-[99999]">
                     <div className="flex justify-between items-center p-3 border-b border-primary">
                         <div className='flex gap-3 justify-center items-center'>
                         <img
@@ -100,22 +121,38 @@ const ChatWindow = () => {
                     </div>
                     
                     <div className="flex flex-col h-[calc(100%-4rem)]">
-                        <div className="flex-1 p-4 overflow-auto">
-                            {messages.map((msg, idx) => (
-                                <div key={idx} className={`mb-4 ${msg.role === 'user' ? 'text-right' : 'text-left'}`}>
-                                    <div className={`inline-block p-2 rounded-lg ${
-                                        msg.role === 'user' ? 'bg-primary text-accent' : 'bg-secondary'
-                                    }`}>
-                                        {msg.content}
-                                    </div>
-                                </div>
-                            ))}
-                            {isLoading && (
-                                <div className="text-center">
-                                    <div className="animate-pulse">Thinking...</div>
-                                </div>
-                            )}
-                        </div>
+                    <div className="flex-1 p-4 overflow-auto">
+            {messages.map((msg, idx) => (
+                <div key={idx} className={`mb-4 ${msg.role === 'user' ? 'text-right' : 'text-left'}`}>
+                    <div className={`inline-block p-2 rounded-lg ${
+                        msg.role === 'user' ? 'bg-secondary text-black' : 'bg-primary text-white'
+                    }`}>
+                        <ReactMarkdown 
+                            remarkPlugins={[remarkGfm]}
+                            components={{
+                                p: ({...props}) => <p className="my-2" {...props} />,
+                                h1: ({...props}) => <h1 className="text-2xl font-bold my-4" {...props} />,
+                                h2: ({...props}) => <h2 className="text-xl font-bold my-3" {...props} />,
+                                ul: ({ ...props}) => <ul className="list-disc ml-4 my-2" {...props} />,
+                                ol: ({...props}) => <ol className="list-decimal ml-4 my-2" {...props} />,
+                                li: ({...props}) => <li className="my-1" {...props} />,
+                                code: ({inline, ...props}) => 
+                                    inline ? 
+                                        <code className="bg-gray-800 text-gray-200 px-1 rounded" {...props} /> :
+                                        <code className="block bg-gray-800 text-gray-200 p-2 rounded my-2 overflow-x-auto" {...props} />
+                            }}
+                        >
+                            {msg.content}
+                        </ReactMarkdown>
+                    </div>
+                </div>
+            ))}
+            {isLoading && (
+                <div className="text-center">
+                    <div className="animate-pulse">Thinking...</div>
+                </div>
+            )}
+        </div>
 
                         <form onSubmit={sendMessage} className="p-3 border-t border-primary">
                             <div className="flex gap-2">

@@ -144,7 +144,7 @@ const NavBar = () => {
                     Skin Check
                 </NavLink>
             </li>
-            <li>
+            {user && <li>
                 <NavLink
                     to="/results"
                     className={({ isActive }) =>
@@ -153,7 +153,7 @@ const NavBar = () => {
                 >
                     My Results
                 </NavLink>
-            </li>
+            </li>}
         </>
     );
 

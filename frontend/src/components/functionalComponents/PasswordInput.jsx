@@ -17,7 +17,7 @@ const PasswordInput = ({ name, placeholder, onValueChange }) => {
                 placeholder={placeholder}
                 type={showPassword ? "text" : "password"}
                 name={name}
-                className="flex h-10 w-full rounded-md border border-primary bg-transparent px-3 py-2 text-sm placeholder:text-gray-600"
+                className="flex w-full h-10 px-3 py-2 text-sm bg-transparent border rounded-md border-primary placeholder:text-gray-600"
                 required
                 onChange={handleInputChange}
                 onFocus={() => setIsInputFocused(true)}
@@ -36,9 +36,9 @@ const PasswordInput = ({ name, placeholder, onValueChange }) => {
                     }}
                 >
                     {showPassword ? (
-                        <TbEyeClosed className="text-black text-2xl hide" />
+                        <TbEyeClosed className="text-2xl text-black hide" />
                     ) : (
-                        <TbEye className="text-black text-2xl show" />
+                        <TbEye className="text-2xl text-black show" />
                     )}
                 </button>
             )}

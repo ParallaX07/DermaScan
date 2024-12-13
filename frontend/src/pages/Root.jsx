@@ -73,7 +73,7 @@ const Root = () => {
             {/* scroll up button */}
             {showScroll && (
                 <div
-                    className="fixed bottom-5 right-5 bg-secondary text-white p-2 rounded-full cursor-pointer animate__animated animate__fadeInRight"
+                    className="fixed p-2 text-white rounded-full cursor-pointer bottom-5 right-5 bg-secondary animate__animated animate__fadeInRight"
                     onClick={scrollTop}
                 >
                     <IoIosArrowUp className="text-2xl" />

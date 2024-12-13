@@ -30,9 +30,9 @@ const NavBar = () => {
      */
     const loggedOutState = (
         <>
-            <div className="gap-2 items-center lg:flex hidden ">
-                <div className="p-2 rounded-full border-2 border-primary">
-                    <IoPerson className="text-primary text-xl " />
+            <div className="items-center hidden gap-2 lg:flex ">
+                <div className="p-2 border-2 rounded-full border-primary">
+                    <IoPerson className="text-xl text-primary " />
                 </div>
                 <NavLink
                     to="/register"
@@ -61,10 +61,10 @@ const NavBar = () => {
      */
     const loggedInState = (
         <>
-            <div className="flex gap-2 items-center">
+            <div className="flex items-center gap-2">
                 <a className="profileImage">
                         <img
-                            className="size-12 rounded-full"
+                            className="rounded-full size-12"
                             src={user?.photoURL}
                             alt=""
                         />
@@ -72,7 +72,7 @@ const NavBar = () => {
 
                 <button
                     onClick={handleLogout}
-                    className="logout lg:py-2 lg:px-3 rounded-full bg-primary text-primary bg-opacity-20 border-primary border-2 hidden lg:flex items-center gap-2"
+                    className="items-center hidden gap-2 border-2 rounded-full logout lg:py-2 lg:px-3 bg-primary text-primary bg-opacity-20 border-primary lg:flex"
                 >
                     <IoMdLogOut className="size-6" />
                 </button>
@@ -113,10 +113,10 @@ const NavBar = () => {
     }, [dropDown]);
 
     const loadingSkeleton = (
-        <div className="flex gap-2 items-center animate-pulse">
-            <div className="profileImage bg-gray-200 rounded-full h-12 w-12"></div>
-            <button className="lg:py-2 lg:px-3 rounded-full bg-gray-200 text-gray-200 bg-opacity-20 border-gray-200 border-2 hidden lg:flex items-center gap-2">
-                <div className="h-6 w-6 bg-gray-200 rounded-full"></div>
+        <div className="flex items-center gap-2 animate-pulse">
+            <div className="w-12 h-12 bg-gray-200 rounded-full profileImage"></div>
+            <button className="items-center hidden gap-2 text-gray-200 bg-gray-200 border-2 border-gray-200 rounded-full lg:py-2 lg:px-3 bg-opacity-20 lg:flex">
+                <div className="w-6 h-6 bg-gray-200 rounded-full"></div>
                 Getting info
             </button>
         </div>
@@ -158,8 +158,8 @@ const NavBar = () => {
     );
 
     return (
-        <header className="flex fixed w-full top-0 z-50 custom-shadow transition duration-300">
-            <nav className="lg:px-5 mt-3 mx-2 glass-morph px-3 py-2 flex justify-between text-sm items-center lg:text-base font-bold w-full">
+        <header className="fixed top-0 z-50 flex w-full transition duration-300 custom-shadow">
+            <nav className="flex items-center justify-between w-full px-3 py-2 mx-2 mt-3 text-sm font-bold lg:px-5 glass-morph lg:text-base">
                 <Link to="/" className="flex items-center gap-2">
                     <img
                         className="lg:size-16 size-14"
@@ -167,19 +167,19 @@ const NavBar = () => {
                         alt="logo"
                     />
                     <div>
-                        <h1 className="text-primary transition duration-300 text-lg lg:text-2xl font-black flex lg:flex-row flex-col lg:gap-2">
+                        <h1 className="flex flex-col text-lg font-black transition duration-300 text-primary lg:text-2xl lg:flex-row lg:gap-2">
                             Derma{" "}
                             <span className="text-black">
                                 Scan
                             </span>
                         </h1>
-                        <p className="text-primary text-xs lg:text-sm font-bold">
+                        <p className="text-xs font-bold text-primary lg:text-sm">
                         Detect. Diagnose. Protect.
                         </p>
                     </div>
                 </Link>
-                <ul className="hidden lg:flex gap-4">{navItems}</ul>{" "}
-                <div className="flex items-center gap-3 relative">
+                <ul className="hidden gap-4 lg:flex">{navItems}</ul>{" "}
+                <div className="relative flex items-center gap-3">
                     {loading
                         ? loadingSkeleton
                         : user
@@ -188,19 +188,19 @@ const NavBar = () => {
                     {/* right most element */}
                     <TiThMenu
                         onClick={handleDropDown}
-                        className="lg:hidden flex size-6 text-primary hamburger"
+                        className="flex lg:hidden size-6 text-primary hamburger"
                     />
                     <div
                         className={`dropdown ${
                             dropDown ? "flex" : "hidden"
                         } absolute top-6 right-1 rounded-lg bg-white py-3 px-5 font-medium border border-primary w-44 z-10`}
                     >
-                        <ul className="flex flex-col gap-3 font-medium text-lg">
+                        <ul className="flex flex-col gap-3 text-lg font-medium">
                             {navItems}
                             {user ? (
                                 <li
                                     onClick={handleLogout}
-                                    className="flex gap-2 items-center"
+                                    className="flex items-center gap-2"
                                 >
                                     <IoMdLogOut className="text-primary" />
                                     Logout

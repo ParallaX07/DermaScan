@@ -8,7 +8,7 @@ const Error404 = () => {
         useDocumentTitle("404 | DermaScan");
 
     return (
-        <section className="fixed inset-0 z-50 flex justify-center items-center h-dvh p-16 glass text-gray-900 glass2">
+        <section className="fixed inset-0 z-50 flex items-center justify-center p-16 text-gray-900 h-dvh glass glass2">
             <div className="container flex flex-col items-center justify-center px-5 mx-auto my-8">
                 <div className="max-w-md text-center">
                     <h2 className="mb-8 font-extrabold text-9xl ">
@@ -24,7 +24,7 @@ const Error404 = () => {
                     <Link to={"/"}
                         rel="noopener noreferrer"
                         href="#"
-                        className="px-8 py-3 font-semibold rounded bg-primary text-white"
+                        className="px-8 py-3 font-semibold text-white rounded bg-primary"
                     >
                         Back to homepage
                     </Link>

@@ -169,22 +169,22 @@ const MyResults = () => {
     }
 
     return (
-        <div className="pt-24 flex gap-10">
-            <table className=" border-x-2 border-t-2 glass2  mx-auto table-auto overflow-auto my-10 rounded-lg transition duration-300">
+        <div className="flex gap-10 pt-24">
+            <table className="mx-auto my-10 overflow-auto transition duration-300 border-t-2 rounded-lg table-auto  border-x-2 glass2">
                 <thead className="">
-                    <tr className="text-left font-medium text-xl  bg-primary text-accent">
+                    <tr className="text-xl font-medium text-left bg-primary text-accent">
                         <th className="px-4 py-2">Image</th>
                         <th className="px-4 py-2 ">Status</th>
                         <th className="px-4 py-2 ">Results</th>
                         <th className="px-4 py-2">Action</th>
                     </tr>
                 </thead>
-                <tbody className=" text-lg dark:text-brown-accent">
+                <tbody className="text-lg  dark:text-brown-accent">
                     <tr className="border-b-2">
                         <td></td>
                         <td></td>
                         <td className="px-4 py-2">
-                            <p className="capitalize flex items-center justify-between gap-3 font-bold">
+                            <p className="flex items-center justify-between gap-3 font-bold capitalize">
                                 <span>Disease</span>
                                 <span>Confidence</span>
                             </p>
@@ -198,7 +198,7 @@ const MyResults = () => {
                                 <td className="px-4 py-2">
                                     <img
                                         src={`data:image/jpeg;base64,${result?.image}`}
-                                        className="w-20 h-20 object-cover rounded-lg shadow-md cursor-pointer hover:scale-110 transition-transform duration-500 ease-in-out"
+                                        className="object-cover w-20 h-20 transition-transform duration-500 ease-in-out rounded-lg shadow-md cursor-pointer hover:scale-110"
                                         onClick={() =>
                                             showFullImage(
                                                 `data:image/jpeg;base64,${result?.image}`
@@ -207,7 +207,7 @@ const MyResults = () => {
                                     />
                                 </td>
                                 <td className="px-4 py-2 ">
-                                    <p className="capitalize flex gap-3 items-center justify-center">
+                                    <p className="flex items-center justify-center gap-3 capitalize">
                                         {result?.status === "pending result" || result?.status === "pending image" ? (
                                             <MdPendingActions className="text-orange-500" />
                                         ) : (
@@ -222,9 +222,9 @@ const MyResults = () => {
                                     ).map(([key, res], index) => (
                                         <p
                                             key={index}
-                                            className="capitalize flex items-center justify-between gap-20 clicklink"
+                                            className="flex items-center justify-between gap-20 capitalize clicklink"
                                         >
-                                            <Link to={dermnetLinks[key]} target="_blank" className="hover:underline-offset-4 hover:underline"><span className="text-gray-800 font-semibold">{key}:</span></Link>
+                                            <Link to={dermnetLinks[key]} target="_blank" className="hover:underline-offset-4 hover:underline"><span className="font-semibold text-gray-800">{key}:</span></Link>
                                             <span className="just">
                                                 {(res * 100).toFixed(1)}%
                                             </span>
@@ -233,7 +233,7 @@ const MyResults = () => {
                                 </td>
                                 <td className="px-4">
                                     <button
-                                        className="bg-primary text-accent px-2 py-1 rounded-lg"
+                                        className="px-2 py-1 rounded-lg bg-primary text-accent"
                                         onClick={() =>
                                             showAllResults(result?.result)
                                         }

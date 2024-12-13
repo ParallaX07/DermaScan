@@ -117,21 +117,21 @@ Feel free to ask any questions about skin health or how DermaScan can assist you
         <>
             <button
                 onClick={() => setShowChat(!showChat)}
-                className="fixed bottom-16 right-5 bg-primary text-white p-3 rounded-full cursor-pointer hover:bg-opacity-80 transition-all duration-300 z-50"
+                className="fixed z-50 p-3 text-white transition-all duration-300 rounded-full cursor-pointer bottom-16 right-5 bg-primary hover:bg-opacity-80"
             >
                 <IoChatbubble className="text-4xl" />
             </button>
 
             {showChat && (
                 <div className="fixed bottom-10 right-5 w-[600px] h-[630px] glass-chat rounded-lg shadow-lg animate__animated animate__fadeIn z-[99999]">
-                    <div className="flex justify-between items-center p-3 border-b border-primary">
-                        <div className="flex gap-3 justify-center items-center">
+                    <div className="flex items-center justify-between p-3 border-b border-primary">
+                        <div className="flex items-center justify-center gap-3">
                             <img
                                 className="lg:size-10 size-14"
                                 src="https://i.ibb.co.com/NTryxk6/11-modified-1.png"
                                 alt="logo"
                             />
-                            <h3 className="font-bold text-lg">DermaDoc</h3>
+                            <h3 className="text-lg font-bold">DermaDoc</h3>
                         </div>
                         <button
                             onClick={() => setShowChat(false)}
@@ -170,25 +170,25 @@ Feel free to ask any questions about skin health or how DermaScan can assist you
                                                 ),
                                                 h1: ({ ...props }) => (
                                                     <h1
-                                                        className="text-2xl font-bold my-4"
+                                                        className="my-4 text-2xl font-bold"
                                                         {...props}
                                                     />
                                                 ),
                                                 h2: ({ ...props }) => (
                                                     <h2
-                                                        className="text-xl font-bold my-3"
+                                                        className="my-3 text-xl font-bold"
                                                         {...props}
                                                     />
                                                 ),
                                                 ul: ({ ...props }) => (
                                                     <ul
-                                                        className="list-disc ml-4 my-2"
+                                                        className="my-2 ml-4 list-disc"
                                                         {...props}
                                                     />
                                                 ),
                                                 ol: ({ ...props }) => (
                                                     <ol
-                                                        className="list-decimal ml-4 my-2"
+                                                        className="my-2 ml-4 list-decimal"
                                                         {...props}
                                                     />
                                                 ),
@@ -201,12 +201,12 @@ Feel free to ask any questions about skin health or how DermaScan can assist you
                                                 code: ({ inline, ...props }) =>
                                                     inline ? (
                                                         <code
-                                                            className="bg-gray-800 text-gray-200 px-1 rounded"
+                                                            className="px-1 text-gray-200 bg-gray-800 rounded"
                                                             {...props}
                                                         />
                                                     ) : (
                                                         <code
-                                                            className="block bg-gray-800 text-gray-200 p-2 rounded my-2 overflow-x-auto"
+                                                            className="block p-2 my-2 overflow-x-auto text-gray-200 bg-gray-800 rounded"
                                                             {...props}
                                                         />
                                                     ),
@@ -236,12 +236,12 @@ Feel free to ask any questions about skin health or how DermaScan can assist you
                                     value={input}
                                     onChange={(e) => setInput(e.target.value)}
                                     placeholder="Type a message..."
-                                    className="flex-1 p-2 rounded-lg bg-transparent border border-primary"
+                                    className="flex-1 p-2 bg-transparent border rounded-lg border-primary"
                                 />
                                 <button
                                     type="submit"
                                     disabled={isLoading}
-                                    className="bg-primary text-accent px-4 py-2 rounded-lg hover:bg-opacity-80 transition-colors duration-300"
+                                    className="px-4 py-2 transition-colors duration-300 rounded-lg bg-primary text-accent hover:bg-opacity-80"
                                 >
                                     Send
                                 </button>

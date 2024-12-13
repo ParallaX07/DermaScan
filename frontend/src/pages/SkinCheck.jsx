@@ -12,17 +12,17 @@ const FileUploadButton = ({ fileInputRef, img }) => {
     useDocumentTitle("Skin Check | DermaDoc");
 
     return (
-        <div className="max-w-md mx-auto rounded-lg overflow-hidden">
+        <div className="max-w-md mx-auto overflow-hidden rounded-lg">
             <div className="md:flex">
                 <div className="w-full p-3">
-                    <div className="glass2 relative h-48 rounded-lg border-2 border-blue-500 flex justify-center items-center transition-shadow duration-300 ease-in-out">
+                    <div className="relative flex items-center justify-center h-48 transition-shadow duration-300 ease-in-out border-2 border-blue-500 rounded-lg glass2">
                         <div className="absolute flex flex-col items-center">
                             {img ? (
                                 <div className="p-5 bg-white">
                                     <img
                                         src={`data:image/*;base64,${img}`}
                                         alt="uploaded"
-                                        className="max-w-xl object-contain rounded-lg"
+                                        className="object-contain max-w-xl rounded-lg"
                                         style={{
                                             objectFit: "contain",
                                             width: "100%",
@@ -39,10 +39,10 @@ const FileUploadButton = ({ fileInputRef, img }) => {
                             )}
                             {!img ? (
                                 <>
-                                    <span className="block text-gray-500 font-semibold">
+                                    <span className="block font-semibold text-gray-500">
                                         Drag &amp; drop your files here
                                     </span>
-                                    <span className="block text-gray-400 font-normal mt-1">
+                                    <span className="block mt-1 font-normal text-gray-400">
                                         or click to upload
                                     </span>
                                 </>
@@ -54,7 +54,7 @@ const FileUploadButton = ({ fileInputRef, img }) => {
                         <input
                             ref={fileInputRef}
                             name=""
-                            className="h-full w-full opacity-0 cursor-pointer"
+                            className="w-full h-full opacity-0 cursor-pointer"
                             type="file"
                             accept="image/*"
                         />
@@ -215,7 +215,7 @@ const SkinCheck = () => {
             </div>
             {/*Upload image option*/}
             <form
-                className="flex flex-col items-center justify-center lg:text-left text-center"
+                className="flex flex-col items-center justify-center text-center lg:text-left"
                 onSubmit={handleFileUpload}
                 onChange={handleFileChange}
             >
@@ -224,7 +224,7 @@ const SkinCheck = () => {
                 </div>
 
                 {/* selected body part */}
-                <div className="mt-5 capitalize flex  items-center gap-2 font-semibold text-lg">
+                <div className="flex items-center gap-2 mt-5 text-lg font-semibold capitalize">
                     Selected Body Part:{" "}
                     <p className="font-normal">
                         {!params
@@ -237,15 +237,15 @@ const SkinCheck = () => {
                 <div className="text-sm text-gray-700">
                     Please deselect a body part before selecting another region
                 </div>
-                <div className="flex justify-center mt-5 gap-5">
+                <div className="flex justify-center gap-5 mt-5">
                     <button
                         type="button"
                         onClick={handleCameraClick}
-                        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                        className="px-4 py-2 font-bold text-white bg-blue-500 rounded hover:bg-blue-700"
                     >
                         Use Camera
                     </button>
-                    <button className=" bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                    <button className="px-4 py-2 font-bold text-white bg-blue-500 rounded  hover:bg-blue-700">
                         Start Analysis
                     </button>
                 </div>

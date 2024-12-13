@@ -92,14 +92,14 @@ const Register = () => {
 
     return (
         <section className="h-[calc(100dvh-100px)] lg:w-full flex items-center justify-center mt-20">
-            <div className="glass2 animate__animated animate__fadeIn xl:mx-auto xl:min-w-fit custom-shadow p-10 xl:max-w-sm 2xl:max-w-md rounded-lg  mx-3 mt-8">
-                <div className="mb-2 flex justify-center"></div>
-                <h2 className="text-center text-2xl font-bold leading-tight text-primary">
+            <div className="p-10 mx-3 mt-8 rounded-lg glass2 animate__animated animate__fadeIn xl:mx-auto xl:min-w-fit custom-shadow xl:max-w-sm 2xl:max-w-md">
+                <div className="flex justify-center mb-2"></div>
+                <h2 className="text-2xl font-bold leading-tight text-center text-primary">
                     Regsiter for an account
                 </h2>
-                <p className="mt-2 text-center text-sm text-gray-950">
+                <p className="mt-2 text-sm text-center text-gray-950">
                     Already have an account?{" "}
-                    <Link to="/login" className="text-primary font-extrabold">
+                    <Link to="/login" className="font-extrabold text-primary">
                         Login
                     </Link>
                 </p>
@@ -114,7 +114,7 @@ const Register = () => {
                                     placeholder="Email"
                                     type="email"
                                     name="email"
-                                    className="flex h-10 w-full rounded-md border border-primary bg-transparent px-3 py-2 text-sm placeholder:text-gray-700"
+                                    className="flex w-full h-10 px-3 py-2 text-sm bg-transparent border rounded-md border-primary placeholder:text-gray-700"
                                     required
                                 />
                             </div>
@@ -129,7 +129,7 @@ const Register = () => {
                                         placeholder="Full Name"
                                         type="text"
                                         name="name"
-                                        className="flex h-10 w-full rounded-md border border-primary bg-transparent px-3 py-2 text-sm placeholder:text-gray-600"
+                                        className="flex w-full h-10 px-3 py-2 text-sm bg-transparent border rounded-md border-primary placeholder:text-gray-600"
                                         required
                                     />
                                 </div>
@@ -143,7 +143,7 @@ const Register = () => {
                                         placeholder="Photo URL"
                                         type="text"
                                         name="url"
-                                        className="flex h-10 w-full rounded-md border border-primary bg-transparent px-3 py-2 text-sm placeholder:text-gray-600"
+                                        className="flex w-full h-10 px-3 py-2 text-sm bg-transparent border rounded-md border-primary placeholder:text-gray-600"
                                     />
                                 </div>
                             </div>
@@ -159,7 +159,7 @@ const Register = () => {
                                         type="number"
                                         name="age"
                                         required
-                                        className="flex h-10 w-full rounded-md border border-primary bg-transparent px-3 py-2 text-sm placeholder:text-gray-600"
+                                        className="flex w-full h-10 px-3 py-2 text-sm bg-transparent border rounded-md border-primary placeholder:text-gray-600"
                                     />
                                 </div>
                             </div>
@@ -171,7 +171,7 @@ const Register = () => {
                                     <select
                                         name="gender"
                                         required
-                                        className="flex h-10 w-full rounded-md border border-primary bg-transparent px-3 py-2 text-sm placeholder:text-gray-600"
+                                        className="flex w-full h-10 px-3 py-2 text-sm bg-transparent border rounded-md border-primary placeholder:text-gray-600"
                                     >
                                         <option value="" disabled selected>
                                             Select your gender
@@ -186,7 +186,7 @@ const Register = () => {
                             </div>
                         </div>
 
-                        <div className="flex lg:flex-row flex-col">
+                        <div className="flex flex-col lg:flex-row">
                             <div className="w-1/2 pr-2">
                                 <div className="flex items-center justify-between">
                                     <label className="text-base font-medium text-gray-900">
@@ -209,7 +209,7 @@ const Register = () => {
                                         Confirm Password
                                     </label>
                                 </div>
-                                <div className="mt-2 relative">
+                                <div className="relative mt-2">
                                     <PasswordInput
                                         name="confirmation"
                                         placeholder="Confirm Password"

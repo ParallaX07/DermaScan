@@ -158,8 +158,8 @@ const NavBar = () => {
     );
 
     return (
-        <header className="fixed top-0 z-50 flex w-full transition duration-300 custom-shadow">
-            <nav className="flex items-center justify-between w-full px-3 py-2 mx-2 mt-3 text-sm font-bold lg:px-5 glass-morph lg:text-base">
+        <header className="fixed z-50 flex w-full mx-auto transition duration-300 top-5 custom-shadow">
+            <nav className="flex items-center justify-between w-3/4 px-3 py-2 mx-auto mt-3 text-sm font-bold lg:px-5 glass-morph lg:text-base">
                 <Link to="/" className="flex items-center gap-2">
                     <img
                         className="lg:size-16 size-14"

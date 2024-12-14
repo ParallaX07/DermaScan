@@ -10,6 +10,7 @@ const ChatWindow = () => {
     const [input, setInput] = useState("");
     const [isLoading, setIsLoading] = useState(false);
     const [isFirstOpen, setIsFirstOpen] = useState(true);
+    const [streamingMessage, setStreamingMessage] = useState("");
     const client = useRef(null);
     const modelRef = useRef(null);
 
@@ -31,7 +32,7 @@ const ChatWindow = () => {
         const initLMStudio = async () => {
             try {
                 client.current = new LMStudioClient({
-                    baseUrl: "ws://127.0.0.1:1234",
+                    baseUrl: "ws://127.0.0.1:1235",
                 });
 
                 // Get any loaded model
@@ -44,6 +45,17 @@ const ChatWindow = () => {
         initLMStudio();
     }, []);
 
+    const messagesEndRef = useRef(null);
+
+    const scrollToBottom = () => {
+        messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+    };
+
+    // Add useEffect for auto-scroll
+    useEffect(() => {
+        scrollToBottom();
+    }, [messages, streamingMessage]);
+
     const sendMessage = async (e) => {
         e.preventDefault();
         if (!input.trim() || !modelRef.current) return;
@@ -52,6 +64,7 @@ const ChatWindow = () => {
         setMessages((prev) => [...prev, userMessage]);
         setInput("");
         setIsLoading(true);
+        setStreamingMessage(""); // Reset streaming message
 
         try {
             const prediction = modelRef.current.respond(
@@ -60,31 +73,52 @@ const ChatWindow = () => {
                         role: "system",
                         content: `You are DermaDoc, a friendly and knowledgeable virtual assistant for DermaScan specializing EXCLUSIVELY in dermatology and skin health.
 
-Core behaviors:  
-- ONLY respond to questions about skin conditions, diseases, and dermatological concerns.  
-- For ANY non-skin-related questions, politely refuse with: "I apologize, but I can only assist with questions about skin health and dermatology. Please feel free to ask me about any skin-related concerns."  
-- Never acknowledge or redirect non-skin topics.  
-- Never provide medical prescriptions or definitive diagnoses.  
-- Always recommend consulting healthcare professionals for specific medical advice.  
-- Keep responses concise and informative, avoiding overly technical jargon.  
-- Go into detail only if the user asks for it or if it's necessary to provide accurate information.  
-- Respond warmly to conversational greetings like "Hello" or "How are you?" with friendly and polite answers.  
-- Give responses in Markdown formatting
+Core Guidelines:
+
+    Scope of Assistance:
+        Respond exclusively to skin health and dermatology-related questions.
+        For non-skin-related questions, politely refuse with:
+
+            "I apologize, but I can only assist with questions about skin health and dermatology. Please feel free to ask me about any skin-related concerns."
+
+        Do not redirect to other topics.
+
+    Medical Disclaimer:
+        Avoid providing medical prescriptions or definitive diagnoses.
+        Always recommend consulting healthcare professionals for specific advice.
+
+    Response Style:
+        Always format responses in Markdown.
+        Use appropriate headings, bullet points, and formatted text to organize responses.
+        Maintain a concise and warm tone, avoiding overly technical language unless requested.
+        Provide detailed explanations only when necessary or if explicitly requested.
+
+    Conversational Etiquette:
+        Respond warmly to greetings like "Hello" or "How are you?"
+        Maintain a friendly and approachable tone in all responses.
 
 
-Example responses:  
-- For ANY non-skin question: "I apologize, but I can only assist with questions about skin health and dermatology. Please feel free to ask me about any skin-related concerns."  
-- For skin-related questions: [Provide detailed and helpful responses about skin health and dermatological concerns.]  
+Example Responses
+
+For Non-Skin-Related Questions:
+
+    "I apologize, but I can only assist with questions about skin health and dermatology. Please feel free to ask me about any skin-related concerns."
+
+For Skin-Related Questions:
+
+    Use Markdown to provide structured, informative, and helpful content. 
 
 About DermaScan:  
 
-AI-Powered Skin Disease Detection  
-Detect and analyze skin conditions with the power of artificial intelligence—fast, accurate, and non-invasive.  
+AI-Powered Skin Disease Detection
 
-How It Works:  
-1. Upload Image: Simply upload a clear image of the affected skin area.  
-2. AI Analysis: Our advanced AI analyzes the image for potential skin conditions.  
-3. Get Results: Receive a detailed report with potential diagnoses and next steps.  
+    Detect and analyze skin conditions with the power of artificial intelligence—fast, accurate, and non-invasive.
+
+How It Works:
+
+    Upload Image: Simply upload a clear image of the affected skin area.
+    AI Analysis: Our advanced AI analyzes the image for potential skin conditions.
+    Get Results: Receive a detailed report with potential diagnoses and next steps.
 
 Feel free to ask any questions about skin health or how DermaScan can assist you!  `,
                     },
@@ -97,18 +131,26 @@ Feel free to ask any questions about skin health or how DermaScan can assist you
             );
 
             let fullResponse = "";
-            for await (const text of prediction) {
-                fullResponse += text;
-            }
 
-            // Update messages only once with complete response
+            // Add temporary streaming message
             setMessages((prev) => [
                 ...prev,
-                { role: "assistant", content: fullResponse },
+                { role: "assistant", content: "" },
             ]);
+
+            for await (const text of prediction) {
+                fullResponse += text;
+                setStreamingMessage(fullResponse); // Update streaming text
+                // Update the last message in real-time
+                setMessages((prev) => [
+                    ...prev.slice(0, -1),
+                    { role: "assistant", content: fullResponse },
+                ]);
+            }
         } catch (error) {
             console.error("Failed to get response:", error);
         } finally {
+            setStreamingMessage("");
             setIsLoading(false);
         }
     };
@@ -217,13 +259,7 @@ Feel free to ask any questions about skin health or how DermaScan can assist you
                                     </div>
                                 </div>
                             ))}
-                            {isLoading && (
-                                <div className="text-center">
-                                    <div className="animate-pulse">
-                                        Thinking...
-                                    </div>
-                                </div>
-                            )}
+                            <div ref={messagesEndRef} />
                         </div>
 
                         <form
@@ -236,15 +272,16 @@ Feel free to ask any questions about skin health or how DermaScan can assist you
                                     value={input}
                                     onChange={(e) => setInput(e.target.value)}
                                     placeholder="Type a message..."
-                                    className="flex-1 p-2 bg-transparent border rounded-lg border-primary"
+                                    className="flex-1 p-2 bg-transparent border rounded-lg border-primary disabled:cursor-not-allowed"
+                                    disabled={isLoading}
                                 />
-                                <button
+                                {!isLoading && <button
                                     type="submit"
                                     disabled={isLoading}
                                     className="px-4 py-2 transition-colors duration-300 rounded-lg bg-primary text-accent hover:bg-opacity-80"
                                 >
                                     Send
-                                </button>
+                                </button>}
                             </div>
                         </form>
                     </div>

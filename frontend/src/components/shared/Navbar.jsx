@@ -6,6 +6,7 @@ import { Tooltip } from "react-tooltip";
 import { MessageContext } from "../../pages/Root";
 import { AuthContext } from "../../Auth/AuthProvider";
 import { IoPerson } from "react-icons/io5";
+import logo from "../../assets/logo.png";
 
 const NavBar = () => {
     const active = "text-primary";
@@ -63,11 +64,11 @@ const NavBar = () => {
         <>
             <div className="flex items-center gap-2">
                 <a className="profileImage">
-                        <img
-                            className="rounded-full size-12"
-                            src={user?.photoURL}
-                            alt=""
-                        />
+                    <img
+                        className="rounded-full size-12"
+                        src={user?.photoURL}
+                        alt=""
+                    />
                 </a>
 
                 <button
@@ -144,37 +145,32 @@ const NavBar = () => {
                     Skin Check
                 </NavLink>
             </li>
-            {user && <li>
-                <NavLink
-                    to="/results"
-                    className={({ isActive }) =>
-                        isActive ? `${active}` : `${inactive}`
-                    }
-                >
-                    My Results
-                </NavLink>
-            </li>}
+            {user && (
+                <li>
+                    <NavLink
+                        to="/results"
+                        className={({ isActive }) =>
+                            isActive ? `${active}` : `${inactive}`
+                        }
+                    >
+                        My Results
+                    </NavLink>
+                </li>
+            )}
         </>
     );
 
     return (
         <header className="fixed z-50 flex w-full mx-auto transition duration-300 top-5 custom-shadow">
-            <nav className="flex items-center justify-between w-3/4 px-3 py-2 mx-auto mt-3 text-sm font-bold lg:px-5 glass-morph lg:text-base">
+            <nav className="flex items-center justify-between w-2/3 px-3 py-2 mx-auto mt-3 text-sm font-bold lg:px-5 glass-morph lg:text-base">
                 <Link to="/" className="flex items-center gap-2">
-                    <img
-                        className="lg:size-16 size-14"
-                        src="https://i.ibb.co.com/NTryxk6/11-modified-1.png"
-                        alt="logo"
-                    />
+                    <img className="lg:size-16 size-14" src={logo} alt="logo" />
                     <div>
                         <h1 className="flex flex-col text-lg font-black transition duration-300 text-primary lg:text-2xl lg:flex-row lg:gap-2">
-                            Derma{" "}
-                            <span className="text-black">
-                                Scan
-                            </span>
+                            Derma <span className="text-black">Scan</span>
                         </h1>
                         <p className="text-xs font-bold text-primary lg:text-sm">
-                        Detect. Diagnose. Protect.
+                            Detect. Diagnose. Protect.
                         </p>
                     </div>
                 </Link>
@@ -261,7 +257,9 @@ const NavBar = () => {
                     borderWidth: "2px",
                     fontWeight: "700",
                 }}
-            >Logout</Tooltip>
+            >
+                Logout
+            </Tooltip>
         </header>
     );
 };

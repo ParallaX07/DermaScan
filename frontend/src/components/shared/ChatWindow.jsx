@@ -3,27 +3,38 @@ import { IoClose, IoChatbubble } from "react-icons/io5";
 import { LMStudioClient } from "@lmstudio/sdk";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
+import logo from "../../assets/logo.png";
 
 const ChatWindow = () => {
     const [showChat, setShowChat] = useState(false);
+
     const [messages, setMessages] = useState([]);
+
     const [input, setInput] = useState("");
+
     const [isLoading, setIsLoading] = useState(false);
+
     const [isFirstOpen, setIsFirstOpen] = useState(true);
+
     const [streamingMessage, setStreamingMessage] = useState("");
+
     const client = useRef(null);
+
     const modelRef = useRef(null);
 
     // Initial greeting effect
+
     useEffect(() => {
         if (showChat && isFirstOpen) {
             setMessages([
                 {
                     role: "assistant",
+
                     content:
                         "Hello! I am DermaDoc, your medical assistant. How can I help you today?",
                 },
             ]);
+
             setIsFirstOpen(false);
         }
     }, [showChat, isFirstOpen]);
@@ -36,6 +47,7 @@ const ChatWindow = () => {
                 });
 
                 // Get any loaded model
+
                 modelRef.current = await client.current.llm.get({});
             } catch (error) {
                 console.error("Failed to connect to LMStudio:", error);
@@ -52,18 +64,24 @@ const ChatWindow = () => {
     };
 
     // Add useEffect for auto-scroll
+
     useEffect(() => {
         scrollToBottom();
     }, [messages, streamingMessage]);
 
     const sendMessage = async (e) => {
         e.preventDefault();
+
         if (!input.trim() || !modelRef.current) return;
 
         const userMessage = { role: "user", content: input };
+
         setMessages((prev) => [...prev, userMessage]);
+
         setInput("");
+
         setIsLoading(true);
+
         setStreamingMessage(""); // Reset streaming message
 
         try {
@@ -71,68 +89,132 @@ const ChatWindow = () => {
                 [
                     {
                         role: "system",
-                        content: `You are DermaDoc, a friendly and knowledgeable virtual assistant for DermaScan specializing EXCLUSIVELY in dermatology and skin health.
 
-Core Guidelines:
+                        content: `
 
-    Scope of Assistance:
-        Respond exclusively to skin health and dermatology-related questions.
-        For non-skin-related questions, politely refuse with:
-
-            "I apologize, but I can only assist with questions about skin health and dermatology. Please feel free to ask me about any skin-related concerns."
-
-        Do not redirect to other topics.
-
-    Medical Disclaimer:
-        Avoid providing medical prescriptions or definitive diagnoses.
-        Always recommend consulting healthcare professionals for specific advice.
-
-    Response Style:
-        Always format responses in Markdown.
-        Use appropriate headings, bullet points, and formatted text to organize responses.
-        Maintain a concise and warm tone, avoiding overly technical language unless requested.
-        Provide detailed explanations only when necessary or if explicitly requested.
-
-    Conversational Etiquette:
-        Respond warmly to greetings like "Hello" or "How are you?"
-        Maintain a friendly and approachable tone in all responses.
+                        ## You are **DermaDoc**, a friendly and knowledgeable virtual assistant for **DermaScan**, specializing **EXCLUSIVELY** in dermatology and skin health.  
 
 
-Example Responses
+                        ### Core Behaviors:  
 
-For Non-Skin-Related Questions:
+                        - **Skin Health Only**:  
 
-    "I apologize, but I can only assist with questions about skin health and dermatology. Please feel free to ask me about any skin-related concerns."
+                        - Respond **only** to questions about skin conditions, diseases, and dermatological concerns.  
 
-For Skin-Related Questions:
+                        - For **any non-skin-related questions**, politely respond with:  
 
-    Use Markdown to provide structured, informative, and helpful content. 
+                            > _"I apologize, but I can only assist with questions about skin health and dermatology. Please feel free to ask me about any skin-related concerns."_  
 
-About DermaScan:  
+                        - Never acknowledge or redirect to unrelated topics.  
 
-AI-Powered Skin Disease Detection
 
-    Detect and analyze skin conditions with the power of artificial intelligence—fast, accurate, and non-invasive.
+                        - **Medical Disclaimer**:  
 
-How It Works:
+                        - Avoid providing medical prescriptions or definitive diagnoses.  
 
-    Upload Image: Simply upload a clear image of the affected skin area.
-    AI Analysis: Our advanced AI analyzes the image for potential skin conditions.
-    Get Results: Receive a detailed report with potential diagnoses and next steps.
+                        - Always recommend consulting a qualified healthcare professional for specific medical advice.  
 
-Feel free to ask any questions about skin health or how DermaScan can assist you!  `,
+
+                        - **Response Style**:  
+
+                        - Format all responses in proper **Markdown** for clarity and structure.  
+
+                        - Keep responses concise and informative, avoiding overly technical jargon unless explicitly requested.  
+
+                        - Provide additional detail or explanations only if the user asks or if context requires accuracy.  
+
+                        - Use **friendly and conversational tones** for greetings like:  
+
+                            > _"Hello!"_ or _"How are you?"_  
+
+
+                        ### Example Responses:  
+
+
+                        #### **Non-Skin-Related Questions**:  
+
+                        > _"I apologize, but I can only assist with questions about skin health and dermatology. Please feel free to ask me about any skin-related concerns."_  
+
+
+                        #### **Skin-Related Questions**:  
+
+                        > Use Markdown to structure your response with appropriate headings, bullet points, or lists to provide clear, helpful, and concise information.  
+
+
+                        ## About DermaScan  
+
+
+                        **Overview**:  
+
+                        - DermaScan is a **web application** utilizing advanced machine learning algorithms to detect and analyze skin diseases.  
+
+                        - The model is primarily trained on the **HAM10000 dataset**—a collection of 10,000 labeled skin lesion images curated by dermatologists.  
+
+
+                        **How It Works**:  
+
+                        1. **Image Upload**: Users upload a clear image of the affected skin area.  
+
+                        2. **AI Analysis**: The DermaScan model (based on the **VGG16 architecture**) analyzes the image.  
+
+                        3. **Predictions**: The system provides a preliminary diagnosis and possible conditions.  
+
+
+                        **Supported Conditions**:  
+
+                        - Benign keratosis-like lesions  
+
+                        - Basal cell carcinoma  
+
+                        - Melanocytic naevi  
+
+                        - Melanoma  
+
+                        - Pyogenic granulomas and hemorrhage  
+
+                        - Actinic keratoses and intraepithelial carcinomae  
+
+                        - Dermatofibroma  
+
+
+                        **Key Features**:  
+
+                        - User-friendly interface for effortless image uploads and diagnosis retrieval.  
+
+                        - Focused on providing **accurate and efficient analysis** to help users identify potential skin conditions early.  
+
+
+                        ## About DermaDoc  
+
+
+                        **Role**:  
+
+                        - DermaDoc is an AI-powered virtual assistant, tightly integrated with the **DermaScan model** to provide explanations and guidance related to dermatological concerns.  
+
+
+                        **Technology**:  
+
+                        - Powered by the **Llama 3.1 8B model** to generate detailed, accurate, and conversational responses.  
+
+                        - Engineered with **system prompt optimization** to focus exclusively on dermatology and skin health topics.  
+
+`,
                     },
+
                     ...messages,
+
                     userMessage,
                 ],
+
                 {
-                    temperature: 0.49,
+                    temperature: 0.6,
                 }
             );
 
             let fullResponse = "";
 
             // Add temporary streaming message
+
             setMessages((prev) => [
                 ...prev,
                 { role: "assistant", content: "" },
@@ -140,10 +222,14 @@ Feel free to ask any questions about skin health or how DermaScan can assist you
 
             for await (const text of prediction) {
                 fullResponse += text;
+
                 setStreamingMessage(fullResponse); // Update streaming text
+
                 // Update the last message in real-time
+
                 setMessages((prev) => [
                     ...prev.slice(0, -1),
+
                     { role: "assistant", content: fullResponse },
                 ]);
             }
@@ -151,6 +237,7 @@ Feel free to ask any questions about skin health or how DermaScan can assist you
             console.error("Failed to get response:", error);
         } finally {
             setStreamingMessage("");
+
             setIsLoading(false);
         }
     };
@@ -170,11 +257,13 @@ Feel free to ask any questions about skin health or how DermaScan can assist you
                         <div className="flex items-center justify-center gap-3">
                             <img
                                 className="lg:size-10 size-14"
-                                src="https://i.ibb.co.com/NTryxk6/11-modified-1.png"
+                                src={logo}
                                 alt="logo"
                             />
+
                             <h3 className="text-lg font-bold">DermaDoc</h3>
                         </div>
+
                         <button
                             onClick={() => setShowChat(false)}
                             className="text-gray-500 hover:text-gray-700"
@@ -212,13 +301,25 @@ Feel free to ask any questions about skin health or how DermaScan can assist you
                                                 ),
                                                 h1: ({ ...props }) => (
                                                     <h1
-                                                        className="my-4 text-2xl font-bold"
+                                                        className="my-4 text-2xl font-bold text-white"
                                                         {...props}
                                                     />
                                                 ),
                                                 h2: ({ ...props }) => (
                                                     <h2
-                                                        className="my-3 text-xl font-bold"
+                                                        className="my-3 text-xl font-bold text-white"
+                                                        {...props}
+                                                    />
+                                                ),
+                                                h3: ({ ...props }) => (
+                                                    <h3
+                                                        className="my-2 text-lg font-bold text-white"
+                                                        {...props}
+                                                    />
+                                                ),
+                                                h4: ({ ...props }) => (
+                                                    <h4
+                                                        className="my-2 text-base font-bold text-white"
                                                         {...props}
                                                     />
                                                 ),
@@ -259,6 +360,7 @@ Feel free to ask any questions about skin health or how DermaScan can assist you
                                     </div>
                                 </div>
                             ))}
+
                             <div ref={messagesEndRef} />
                         </div>
 
@@ -275,13 +377,16 @@ Feel free to ask any questions about skin health or how DermaScan can assist you
                                     className="flex-1 p-2 bg-transparent border rounded-lg border-primary disabled:cursor-not-allowed"
                                     disabled={isLoading}
                                 />
-                                {!isLoading && <button
-                                    type="submit"
-                                    disabled={isLoading}
-                                    className="px-4 py-2 transition-colors duration-300 rounded-lg bg-primary text-accent hover:bg-opacity-80"
-                                >
-                                    Send
-                                </button>}
+
+                                {!isLoading && (
+                                    <button
+                                        type="submit"
+                                        disabled={isLoading}
+                                        className="px-4 py-2 transition-colors duration-300 rounded-lg bg-primary text-accent hover:bg-opacity-80"
+                                    >
+                                        Send
+                                    </button>
+                                )}
                             </div>
                         </form>
                     </div>

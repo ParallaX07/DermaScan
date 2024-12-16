@@ -53,7 +53,6 @@ const AuthProvider = ({ children }) => {
         return unsubscribe;
     }, []);
 
-
     // Object to be passed as value to the context
     const authInfo = {
         user,

@@ -7,6 +7,7 @@ import useAxiosSecure from "../hooks/useAxiosSecure";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 import useDocumentTitle from "../hooks/useDocumentTitle";
+import fileIcon from "../assets/img.icons8.png";
 
 const FileUploadButton = ({ fileInputRef, img }) => {
     useDocumentTitle("Skin Check | DermaDoc");
@@ -34,7 +35,7 @@ const FileUploadButton = ({ fileInputRef, img }) => {
                                 <img
                                     alt="File Icon"
                                     className="mb-3"
-                                    src="https://img.icons8.com/?size=100&id=67369&format=png&color=000000"
+                                    src={fileIcon}
                                 />
                             )}
                             {!img ? (
@@ -245,7 +246,7 @@ const SkinCheck = () => {
                     >
                         Use Camera
                     </button>
-                    <button className="px-4 py-2 font-bold text-white bg-blue-500 rounded  hover:bg-blue-700">
+                    <button className="px-4 py-2 font-bold text-white bg-blue-500 rounded hover:bg-blue-700">
                         Start Analysis
                     </button>
                 </div>

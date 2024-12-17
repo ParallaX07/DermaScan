@@ -1,7 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 require("dotenv").config();
-const bodyParser = require('body-parser');
+const bodyParser = require("body-parser");
 const { MongoClient, ServerApiVersion, ObjectId } = require("mongodb");
 
 const app = express();
@@ -9,8 +9,8 @@ const port = process.env.PORT || 5000;
 
 // Middleware
 app.use(cors());
-app.use(bodyParser.json({ limit: '50mb' }));
-app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
+app.use(bodyParser.json({ limit: "50mb" }));
+app.use(bodyParser.urlencoded({ limit: "50mb", extended: true }));
 
 // Routes
 app.get("/", (req, res) => {
@@ -55,7 +55,11 @@ async function run() {
                 //find user gender using email
                 const user = await users.findOne({ email: newImage.user });
                 //append gender to newImage
-                const newImageUpdated = { ...newImage, gender: user.gender, age : user.age };
+                const newImageUpdated = {
+                    ...newImage,
+                    gender: user.gender,
+                    age: user.age,
+                };
                 const result = await skinImages.insertOne(newImageUpdated);
                 // make an entry in analysisResults collection with status pending
                 const analysisResult = {
@@ -87,18 +91,18 @@ async function run() {
         app.get("/userImage/:email", async (req, res) => {
             try {
                 const email = req.params.email;
-                const userImages = await skinImages.find({ user: email }).toArray();
+                const userImages = await skinImages
+                    .find({ user: email })
+                    .toArray();
                 res.send(userImages);
             } catch (error) {
                 console.error(error);
                 res.status(500).send("Internal Server Error");
             }
         });
-
     } catch (error) {
         console.error(error);
     } finally {
-
     }
 }
 

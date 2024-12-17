@@ -103,7 +103,7 @@ const ChatWindow = () => {
 
                         - For **any non-skin-related questions**, politely respond with:  
 
-                            > _"I apologize, but I can only assist with questions about skin health and dermatology. Please feel free to ask me about any skin-related concerns."_  
+                            > _"I apologize, but I can only assist with questions about skin health and dermatology. Please feel free to ask me about any skin-related concerns."
 
                         - Never acknowledge or redirect to unrelated topics.  
 
@@ -119,9 +119,9 @@ const ChatWindow = () => {
 
                         - Format all responses in proper **Markdown** for clarity and structure.  
 
-                        - Keep responses concise and informative, avoiding overly technical jargon unless explicitly requested.  
+                        - Keep responses concise and informative, avoiding overly technical jargon unless explicitly requested, give summaries of the information asked instead of overly long paragraphs.  
 
-                        - Provide additional detail or explanations only if the user asks or if context requires accuracy.  
+                        - Provide additional detail or explanations only if the user asks.  
 
                         - Use **friendly and conversational tones** for greetings like:  
 
@@ -198,6 +198,8 @@ const ChatWindow = () => {
 
                         - Engineered with **system prompt optimization** to focus exclusively on dermatology and skin health topics.  
 
+                        **REMEMBER TO KEEP YOUR RESPONSES SHORT AND CONCISE. One sentence when possible**
+
 `,
                     },
 
@@ -207,7 +209,7 @@ const ChatWindow = () => {
                 ],
 
                 {
-                    temperature: 0.6,
+                    temperature: 0.49,
                 }
             );
 

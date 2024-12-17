@@ -4,6 +4,8 @@ import toast, { Toaster } from "react-hot-toast";
 import { IoIosArrowUp } from "react-icons/io";
 import NavBar from "../components/shared/Navbar";
 import ChatWindow from "../components/shared/ChatWindow";
+import { useContext } from "react";
+import { AuthContext } from "../Auth/AuthProvider";
 
 const MessageContext = createContext();
 
@@ -42,6 +44,7 @@ const Root = () => {
     };
 
     const [showScroll, setShowScroll] = useState(false);
+    const { user } = useContext(AuthContext);
 
     const checkScrollTop = useCallback(() => {
         if (!showScroll && window.pageYOffset > 400) {
@@ -79,7 +82,7 @@ const Root = () => {
                     <IoIosArrowUp className="text-2xl" />
                 </div>
             )}
-            <ChatWindow />
+            {user && <ChatWindow />}
 
             <Toaster position="top-right" reverseOrder={false} />
         </>
